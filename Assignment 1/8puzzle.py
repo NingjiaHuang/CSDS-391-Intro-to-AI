@@ -14,9 +14,9 @@ class Node:
         ]
         self.hCost = self.calc_heuristic()
     
-    def move(self, direction): 
-        row, col = find_position('B',self.current_state)
-        copy2 = copy.deepcopy(self.current_state)
+    def move(self, direction, parameter): 
+        row, col = find_position('B',parameter)
+        copy2 = copy.deepcopy(parameter)
         if direction == 'u':
             copy2[row][col] = copy2[row-1][col]
             copy2[row-1][col] = 'B'
@@ -40,13 +40,13 @@ class Node:
         successors = []
         i,j = find_position('B',self.current_state)
         if i > 0: 
-            successors.append(Node(self.move('u'),self.gCost+1,self))
+            successors.append(Node(self.move('u',self.current_state),self.gCost+1,self))
         if i < 2: 
-            successors.append(Node(self.move('d'),self.gCost+1,self))
+            successors.append(Node(self.move('d',self.current_state),self.gCost+1,self))
         if j > 0: 
-            successors.append(Node(self.move('l'),self.gCost+1,self))
+            successors.append(Node(self.move('l',self.current_state),self.gCost+1,self))
         if j < 2: 
-            successors.append(Node(self.move('r'),self.gCost+1,self))
+            successors.append(Node(self.move('r',self.current_state),self.gCost+1,self))
         if self.parent == None: 
             return successors
         else: 
@@ -76,7 +76,7 @@ class Node:
                         hCost += abs(i_goal - i) + abs(j_goal - j)
         return hCost
 
-    #implementing a* search
+    #implementing a* search, n is the maximum nodes we would like to check. 
     def a_star(self,n):
         queue = []
         queue.append(self)
@@ -87,9 +87,9 @@ class Node:
                 return
             expanded.append(config)
             queue.pop(find_node_index(config,queue))
-            if(config.isGoal()):
+            if(config.is_goal()):
                 print(*config.determine_path(),sep="\n")
-                print("Goal state reached, # of moves ", len(config.determine_path()))
+                print("Goal state reached, # of moves: ", len(config.determine_path()) - 1)
                 return
             else: 
                 successors = config.generate_successors()
@@ -181,6 +181,9 @@ def set_state(puzzle):
                 col += 1
     return init_state
 
+#def check_solvable(node,goal_state):
+
+
 def find_node_index(node, list): 
     for i in range(len(list)):
         if node == list[i]:
@@ -213,15 +216,22 @@ def find_position(toFind, state):
 
 #make random moves from the goal state to make sure a solution exist.
 def randomize_state(n,node):
+    origin = node.goal
     movement_list = ['u','d','l','r']
+    movement_history = []
     for k in range(n):
         integer = random.randint(0,3)
-        i,j = find_position('B',node.current_state)
+        i,j = find_position('B',node.goal)
         while (i == 0 and integer == 0) or (i == 2 and integer == 1) or (j == 0 and integer == 2) or (j == 2 and integer == 3): 
             integer = random.randint(0,3)
-        node.current_state = node.move(movement_list[integer])
-        print(node.current_state, ' ', movement_list[integer])
-    return node
+        node.goal = node.move(movement_list[integer],node.goal)
+        movement_history.append(movement_list[integer])
+    if(node.goal == origin):
+        return randomize_state(n,node)
+    else: 
+        print("The puzzle given is unsolvable. To solve this puzzle, change the goal state into the following: ", node.goal)
+        print("The movements that have been taken is: ", movement_history)
+        return node
 
 def sort_array(node_list):
     for i in range(len(node_list) - 1):
@@ -234,8 +244,9 @@ def sort_array(node_list):
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    #node.beam_search(30,500000000)
-    #node.a_star(20)
+    node.beam_search(30,500000000)
+    #node.a_star(8)
+    #randomize_state(3,node)
 
 if __name__ == "__main__": 
     main()
