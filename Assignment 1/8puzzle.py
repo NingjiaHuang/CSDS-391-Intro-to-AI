@@ -1,5 +1,5 @@
 import copy
-
+import random
 expanded = []
 
 class Node:
@@ -212,21 +212,30 @@ def find_position(toFind, state):
     return (-1, -1)
 
 #make random moves from the goal state to make sure a solution exist.
-#def randomize_state():
-
+def randomize_state(n,node):
+    movement_list = ['u','d','l','r']
+    for k in range(n):
+        integer = random.randint(0,3)
+        i,j = find_position('B',node.current_state)
+        while (i == 0 and integer == 0) or (i == 2 and integer == 1) or (j == 0 and integer == 2) or (j == 2 and integer == 3): 
+            integer = random.randint(0,3)
+        node.current_state = node.move(movement_list[integer])
+        print(node.current_state, ' ', movement_list[integer])
+    return node
 
 def sort_array(node_list):
     for i in range(len(node_list) - 1):
-            if(node_list[i].hCost > node_list[i+1].hCost):
-                temp = node_list[i]
-                node_list[i] = node_list[i+1]
-                node_list[i+1] = temp
+        if(node_list[i].hCost > node_list[i+1].hCost):
+            temp = node_list[i]
+            node_list[i] = node_list[i+1]
+            node_list[i+1] = temp
     return node_list
 
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    node.beam_search(30,500000000)
+    #node.beam_search(30,500000000)
     #node.a_star(20)
+
 if __name__ == "__main__": 
     main()
