@@ -3,7 +3,7 @@ import copy
 expanded = []
 
 class Node:
-    def __init__(self, start_state, gCost, parent=None):
+    def __init__(self, start_state, gCost,parent=None):
         self.current_state = start_state
         self.gCost = gCost
         self.parent = parent
@@ -33,10 +33,10 @@ class Node:
             raise Exception("Undefined action.")
         return copy2
     
-    def printState(self):
+    def print_state(self):
         print(self.current_state)
 
-    def generateSuccessors(self):
+    def generate_successors(self):
         successors = []
         i,j = find_position('B',self.current_state)
         if i > 0: 
@@ -56,7 +56,7 @@ class Node:
                         successors.pop(find_node_index(successor, successors))                        
         return successors
 
-    def isGoal(self):
+    def is_goal(self):
         if self.current_state == self.goal: 
             return True
         else: 
@@ -65,7 +65,7 @@ class Node:
     #will implement heuristic 2 algorithm, which gives the sum of the distances of tiles from their goal positions.
     def calc_heuristic(self): 
         hCost = 0
-        if self.isGoal(): 
+        if self.is_goal(): 
             return 0
         else: 
             for i in range(len(self.current_state)):
@@ -83,14 +83,16 @@ class Node:
         deal = False
         while(len(queue) != 0):
             config = find_smallest_cost_node(queue)
+            if(max_node(n, len(expanded))): 
+                return
             expanded.append(config)
             queue.pop(find_node_index(config,queue))
             if(config.isGoal()):
                 print(*config.determine_path(),sep="\n")
-                print("Goal state reached, # of move: ", len(config.determine_path()))
+                print("Goal state reached, # of moves ", len(config.determine_path()))
                 return
             else: 
-                successors = config.generateSuccessors()
+                successors = config.generate_successors()
                 for successor in successors: 
                     for node in expanded:
                         if successor.current_state == node.current_state:
@@ -113,30 +115,34 @@ class Node:
                     if(not deal):
                         queue.append(successor)
 
-    def beam_search(self, k):
+    def beam_search(self, k, n):
         found = False
         queue = [] 
         children_k = []
         queue.append(self)
+        num_counter = 1
         while(len(queue) != 0 and found == False):
             #pop all nodes in queue and store their successors in a list
             while(len(queue) != 0):        
+                if(max_node(n,num_counter)):
+                    return
                 current_node = queue.pop()
-                if(current_node.isGoal()):
+                if(current_node.is_goal()):
                     found = True
-                    print("The goal state has been reached. Steps taken: ")
                     print(*current_node.determine_path(),sep="\n")
+                    print("Goal state reached, # of moves: ", len(current_node.determine_path()))
                     return 
                 else: 
-                    successors = current_node.generateSuccessors()
+                    successors = current_node.generate_successors()
+                    num_counter += 1
                     children_k.extend(successors)
             children_k = sort_array(children_k)
             children_k = children_k[:k]
             for j in range(len(children_k)):
                 if(children_k[j].current_state == children_k[j].goal):
                     found = True
-                    print("The goal state has been reached. Steps taken: ")
                     print(*children_k[j].determine_path(),sep="\n")
+                    print("Goal state reached, # of moves: ", len(current_node.determine_path()))
                     return 
             if(found == False):
                 queue.extend(children_k)
@@ -151,7 +157,7 @@ class Node:
             path.insert(0,pointer.current_state)
         return path
 
-def setState(puzzle): 
+def set_state(puzzle): 
     init_state = [
         [0, 0, 0],
         [0, 0, 0],
@@ -184,10 +190,8 @@ def find_node_index(node, list):
 #specify the maximum number of nodes that can be expanded during the search
 def max_node(expected_num,current_num):
     if current_num > expected_num:
-        print("Visited nodes exceed the maximum limit.")
-        return False
-    else: 
-        return True
+        print("Visited nodes exceed the maximum limit. Max limit:", expected_num)
+    return current_num > expected_num
 
 #find the node with the smallest estimated cost: f(n) = g(n) + h(n)
 def find_smallest_cost_node(node_list): 
@@ -207,6 +211,10 @@ def find_position(toFind, state):
                 return (outer, inner) 
     return (-1, -1)
 
+#make random moves from the goal state to make sure a solution exist.
+#def randomize_state():
+
+
 def sort_array(node_list):
     for i in range(len(node_list) - 1):
             if(node_list[i].hCost > node_list[i+1].hCost):
@@ -216,9 +224,9 @@ def sort_array(node_list):
     return node_list
 
 def main():
-    config = setState('test.txt')
+    config = set_state('test.txt')
     node = Node(config, 0)
-    #node.beam_search(19)
-    node.a_star(3)
+    node.beam_search(30,500000000)
+    #node.a_star(20)
 if __name__ == "__main__": 
     main()
