@@ -13,7 +13,7 @@ class Node:
             ['3', '4', '5'],
             ['6', '7', '8']
         ]
-        self.hCost = self.calc_heuristic()
+        self.hCost = self.calc_heuristic(2)
     
     def move(self, direction, parameter): 
         row, col = find_position('B',parameter)
@@ -58,27 +58,35 @@ class Node:
         return successors
 
     def is_goal(self):
-        if self.current_state == self.goal: 
-            return True
-        else: 
-            return False
+        return self.current_state == self.goal 
 
     #will implement heuristic 2 algorithm, which gives the sum of the distances of tiles from their goal positions.
-    def calc_heuristic(self): 
+    def calc_heuristic(self, heuristic): 
         hCost = 0
-        if self.is_goal(): 
-            return 0
-        else: 
+        if(heuristic == 2): 
+            if self.is_goal(): 
+                return 0
+            else: 
+                for i in range(len(self.current_state)):
+                    for j in range(len(self.current_state[i])):
+                        if self.current_state[i][j] != self.goal[i][j]:
+                            rep = self.current_state[i][j]
+                            i_goal, j_goal = find_position(rep, self.goal)
+                            hCost += abs(i_goal - i) + abs(j_goal - j)
+            return hCost
+        elif (heuristic == 1): 
             for i in range(len(self.current_state)):
                 for j in range(len(self.current_state[i])):
-                    if self.current_state[i][j] != self.goal[i][j]:
-                        rep = self.current_state[i][j]
-                        i_goal, j_goal = find_position(rep, self.goal)
-                        hCost += abs(i_goal - i) + abs(j_goal - j)
-        return hCost
+                    if (self.current_state[i][j] != self.goal[i][j]):
+                        hCost += 1
+            return hCost
+        else: 
+            raise Exception("Undefined heuristic.")
 
     #implementing a* search, n is the maximum nodes we would like to check. 
-    def a_star(self,n):
+    def a_star(self,n,num_random_walk):
+        while(check_solvable(self,self.goal) == False):
+            randomize_state(num_random_walk,self)
         queue = []
         queue.append(self)
         deal = False
@@ -116,7 +124,9 @@ class Node:
                     if(not deal):
                         queue.append(successor)
 
-    def beam_search(self, k, n):
+    def beam_search(self, k, n, num_random_walk):
+        while(check_solvable(self,self.goal) == False):
+            randomize_state(num_random_walk,self)
         found = False
         queue = [] 
         children_k = []
@@ -250,7 +260,7 @@ def randomize_state(n,node):
         return randomize_state(n,node)
     else: 
         print("The puzzle given is unsolvable. To solve this puzzle, change the goal state into the following: ", node.goal)
-        print("The movements that have been taken is: ", movement_history)
+        print("The movements from goal been taken is: ", movement_history)
         return node
 
 def sort_array(node_list):
@@ -264,10 +274,10 @@ def sort_array(node_list):
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    #node.beam_search(30,500000000)
-    #node.a_star(8)
+    node.beam_search(30,500000000,3)
+    #node.a_star(12,3)
     #randomize_state(3,node)
-    print(check_solvable(node, node.goal))
+    #print(check_solvable(node, node.goal))
 
 if __name__ == "__main__": 
     main()
