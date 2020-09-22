@@ -1,7 +1,8 @@
 import copy
 import random
-expanded = []
+import itertools
 
+expanded = []
 class Node:
     def __init__(self, start_state, gCost,parent=None):
         self.current_state = start_state
@@ -181,8 +182,27 @@ def set_state(puzzle):
                 col += 1
     return init_state
 
-#def check_solvable(node,goal_state):
-
+#count the number of inversions in order to tell whether a state is solvable or not
+def check_solvable(node,goal_state):
+    num_inversion = 0
+    origin_rep = list(itertools.chain(*node.current_state))
+    origin_rep.remove('B')
+    origin_rep = [int(i) for i in origin_rep] 
+    goal_rep = list(itertools.chain(*goal_state))
+    goal_rep.remove('B')
+    goal_rep = [int(i) for i in goal_rep] 
+    for i in range(len(origin_rep)):
+        for j in range(len(goal_rep)):
+            if(origin_rep[i] == goal_rep[j]):
+                for i_pointer in range(i+1,len(origin_rep)):
+                    if i < len(origin_rep)-1:
+                        if(origin_rep[i_pointer] in goal_rep[:j]):
+                            num_inversion += 1
+    parity = num_inversion % 2
+    if(parity == 0):
+        return True
+    else: 
+        return False
 
 def find_node_index(node, list): 
     for i in range(len(list)):
@@ -244,9 +264,10 @@ def sort_array(node_list):
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    node.beam_search(30,500000000)
+    #node.beam_search(30,500000000)
     #node.a_star(8)
     #randomize_state(3,node)
+    print(check_solvable(node, node.goal))
 
 if __name__ == "__main__": 
     main()
