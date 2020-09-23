@@ -52,10 +52,9 @@ class Node:
             return successors
         else: 
             for successor in successors: 
-                for element in expanded:
-                    if successor.current_state == element.current_state:
-                        successors.pop(find_node_index(successor, successors))                        
-        return successors
+                if state_compare(successor.current_state, successor.parent.parent.current_state):
+                    successors.pop(find_node_index(successor, successors))
+            return successors
 
     def is_goal(self):
         return self.current_state == self.goal 
@@ -85,26 +84,26 @@ class Node:
 
     #implementing a* search, n is the maximum nodes we would like to check. 
     def a_star(self,n,num_random_walk):
-        while(check_solvable(self,self.goal) == False):
-            randomize_state(num_random_walk,self)
+        # while(check_solvable(self,self.goal) == False):
+        #     randomize_state(num_random_walk,self)
         queue = []
         queue.append(self)
         deal = False
-        while(len(queue) != 0):
+        while(queue):
             config = find_smallest_cost_node(queue)
             if(max_node(n, len(expanded))): 
-                return
+                return 
             expanded.append(config)
             queue.pop(find_node_index(config,queue))
             if(config.is_goal()):
                 print(*config.determine_path(),sep="\n")
                 print("Goal state reached, # of moves: ", len(config.determine_path()) - 1)
-                return
-            else: 
-                successors = config.generate_successors()
-                for successor in successors: 
+                return 
+            successors = config.generate_successors()
+            for successor in successors: 
+                if successor in expanded:
                     for node in expanded:
-                        if successor.current_state == node.current_state:
+                        if successor == node:
                             if successor.gCost + successor.hCost < node.gCost + node.hCost:
                                 node.gCost = successor.gCost
                                 node.hCost = successor.hCost
@@ -112,7 +111,7 @@ class Node:
                                 queue.insert(0,node)
                                 expanded.pop(find_node_index(node,expanded))
                             deal = True
-
+                if successor in queue: 
                     for element in queue: #condition: when the current node is in queue
                         if successor.current_state == element.current_state: #if unexpanded nodes have the same current state, keep the one with the lower cost
                             if successor.gCost + successor.hCost < element.gCost + element.hCost: 
@@ -120,9 +119,8 @@ class Node:
                                 element.hCost = successor.hCost
                                 element.parent = successor.parent
                             deal = True
-
-                    if(not deal):
-                        queue.append(successor)
+                if(deal==False):
+                    queue.append(successor)
 
     def beam_search(self, k, n, num_random_walk):
         while(check_solvable(self,self.goal) == False):
@@ -271,11 +269,18 @@ def sort_array(node_list):
             node_list[i+1] = temp
     return node_list
 
+def state_compare(state,goal):
+	for i in range(len(state)):
+		for j in range(len(state)):
+			if state[i][j] != goal[i][j]:
+				return False
+	return True
+
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    node.beam_search(30,500000000,3)
-    #node.a_star(12,3)
+    #node.beam_search(30,500000000,3)
+    node.a_star(10,3)
     #randomize_state(3,node)
     #print(check_solvable(node, node.goal))
 
