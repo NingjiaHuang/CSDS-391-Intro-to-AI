@@ -83,9 +83,10 @@ class Node:
             raise Exception("Undefined heuristic.")
 
     #implementing a* search, n is the maximum nodes we would like to check. 
-    def a_star(self,n,num_random_walk):
-        # while(check_solvable(self,self.goal) == False):
-        #     randomize_state(num_random_walk,self)
+    def a_star(self,n):
+        print("Searching using A* search...")
+        if check_solvable(self,self.goal) == False:
+            return
         queue = []
         queue.append(self)
         deal = False
@@ -122,9 +123,10 @@ class Node:
                 if(deal==False):
                     queue.append(successor)
 
-    def beam_search(self, k, n, num_random_walk):
-        while(check_solvable(self,self.goal) == False):
-            randomize_state(num_random_walk,self)
+    def beam_search(self, k, n):
+        print("Searching using local beam search...")
+        if check_solvable(self,self.goal) == False:
+            return
         found = False
         queue = [] 
         children_k = []
@@ -210,6 +212,7 @@ def check_solvable(node,goal_state):
     if(parity == 0):
         return True
     else: 
+        print("The puzzle given is unsolvable.")
         return False
 
 def find_node_index(node, list): 
@@ -279,8 +282,8 @@ def state_compare(state,goal):
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    #node.beam_search(30,500000000,3)
-    node.a_star(10,3)
+    node.beam_search(30,10000000)
+    #node.a_star(10000000)
     #randomize_state(3,node)
     #print(check_solvable(node, node.goal))
 
