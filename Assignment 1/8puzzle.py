@@ -128,7 +128,8 @@ class Node:
         if check_solvable(self,self.goal) == False:
             return
         found = False
-        queue = [] 
+        queue = [] #queue for each layer
+        explored_map = {}
         children_k = []
         queue.append(self)
         num_counter = 1
@@ -138,6 +139,10 @@ class Node:
                 if(max_node(n,num_counter)):
                     return
                 current_node = queue.pop()
+                if tuple(map(tuple,current_node.current_state)) not in explored_map.keys(): 
+                    explored_map[tuple(map(tuple,current_node.current_state))] = current_node
+                else:
+                    continue
                 if(current_node.is_goal()):
                     found = True
                     print(*current_node.determine_path(),sep="\n")
@@ -145,10 +150,13 @@ class Node:
                     return 
                 else: 
                     successors = current_node.generate_successors()
-                    num_counter += 1
-                    children_k.extend(successors)
+                    for successor in successors: 
+                        tup = tuple(map(tuple,successor.current_state))
+                        if explored_map.get(tup) != None: 
+                            successors.pop(find_node_index(successor,successors))
+                num_counter += 1
+                children_k.extend(successors)
             children_k = sort_array(children_k)
-            children_k = children_k[:k]
             for j in range(len(children_k)):
                 if(children_k[j].current_state == children_k[j].goal):
                     found = True
