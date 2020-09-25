@@ -88,13 +88,15 @@ class Node:
         if check_solvable(self,self.goal) == False:
             return
         queue = []
+        explored_map = {}
         queue.append(self)
         deal = False
         while(queue):
             config = find_smallest_cost_node(queue)
             if(max_node(n, len(expanded))): 
                 return 
-            expanded.append(config)
+            if tuple(map(tuple,config.current_state)) not in explored_map.keys(): 
+                explored_map[tuple(map(tuple,config.current_state))] = config
             queue.pop(find_node_index(config,queue))
             if(config.is_goal()):
                 print(*config.determine_path(),sep="\n")
@@ -102,16 +104,11 @@ class Node:
                 return 
             successors = config.generate_successors()
             for successor in successors: 
-                if successor in expanded:
-                    for node in expanded:
-                        if successor == node:
-                            if successor.gCost + successor.hCost < node.gCost + node.hCost:
-                                node.gCost = successor.gCost
-                                node.hCost = successor.hCost
-                                node.parent = successor.parent
-                                queue.insert(0,node)
-                                expanded.pop(find_node_index(node,expanded))
-                            deal = True
+                if explored_map[tuple(map(tuple,config.current_state))] != None:
+                    if successor.gCost + successor.hCost < explored_map[tuple(map(tuple,config.current_state))].gCost + explored_map[tuple(map(tuple,config.current_state))].hCost:
+                        explored_map[tuple(map(tuple,config.current_state))].gCost = successor
+                        queue.insert(0,explored_map[tuple(map(tuple,config.current_state))])
+                    deal = True
                 if successor in queue: 
                     for element in queue: #condition: when the current node is in queue
                         if successor.current_state == element.current_state: #if unexpanded nodes have the same current state, keep the one with the lower cost
@@ -132,7 +129,7 @@ class Node:
         explored_map = {}
         children_k = []
         queue.append(self)
-        num_counter = 1
+        num_counter = 0
         while(len(queue) != 0 and found == False):
             #pop all nodes in queue and store their successors in a list
             while(len(queue) != 0):        
@@ -157,6 +154,7 @@ class Node:
                 num_counter += 1
                 children_k.extend(successors)
             children_k = sort_array(children_k)
+            children_k = children_k[:k]
             for j in range(len(children_k)):
                 if(children_k[j].current_state == children_k[j].goal):
                     found = True
@@ -290,7 +288,7 @@ def state_compare(state,goal):
 def main():
     config = set_state('test.txt')
     node = Node(config, 0)
-    node.beam_search(30,10000000)
+    node.beam_search(400,10000000)
     #node.a_star(10000000)
     #randomize_state(3,node)
     #print(check_solvable(node, node.goal))
