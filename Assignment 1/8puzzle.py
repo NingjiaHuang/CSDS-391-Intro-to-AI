@@ -166,7 +166,7 @@ class Node:
                             found = True
                             print(*current_node.determine_path(),sep="\n")
                             print(successor.current_state)
-                            print("Goal state reached, # of moves: ", len(current_node.determine_path())+1)
+                            print("Goal state reached, # of moves: ", len(current_node.determine_path()))
                             return True
                         else:
                             pass
