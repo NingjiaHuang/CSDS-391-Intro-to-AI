@@ -1,5 +1,31 @@
 \documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
 
+\lstset{style=mystyle}
 \begin{document}
 \title{CSDS 391 Programming Assignment 2 Writeup}
 \author{Ningjia Huang, Tianxi Zhao}
@@ -10,4 +36,28 @@
 
 \section*{Problem 2: }
 \subsection*{(a)}
+The mean squared error is calculated using the following equation: 
+\begin{center}
+    $MSE = \frac{1}{n}\sum_n (Y_i - \hat{Y_i})^2$
+\end{center}
+, where $Y_i$ is the actual category of the $ith$ item and $\hat{Y_i}$ is the predicted category by using our neural network.\\ \\
+The following codes compute the \textbf{mean squared error} for iris data. The parameter "data\_vector" are the attributes we would like to take into account, it should be a dataframe of attributes.
+$w0, w1, w2$ define the weights of neural network. The parameter "pattern\_classes" is a dataframe of the category corresponding to the data\_vectors. The \textbf{mean\_square\_error} makes use of 
+the logistic non-linearity function in Problem 1.
+\begin{lstlisting}[language=Python, caption=Mean Squared Error Calculation]
+# data vectors in dataframe, pattern classes in list
+def mean_square_error(data_vectors, w0, w1, w2, pattern_classes):
+    n = data_vectors.shape[0]
+    print("# of rows: ", n)
+    data_vectors_list = data_vectors.values.tolist()
+    pattern_classes_list = pattern_classes.tolist()
+    temp_mse = 0
+    for i in range(n):
+        temp_mse = temp_mse + np.square(pattern_classes_list[i] - one_layer_network(w0, w1, w2, data_vectors_list[i][0], data_vectors_list[i][1]))
+    mse = temp_mse/n
+    return mse
+\end{lstlisting}
+
+\subsection*{(b)}
+
 \end{document}
