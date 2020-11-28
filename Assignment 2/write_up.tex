@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -42,13 +43,12 @@ The mean squared error is calculated using the following equation:
 \end{center}
 , where $Y_i$ is the actual category of the $ith$ item and $\hat{Y_i}$ is the predicted category by using our neural network.\\ \\
 The following codes compute the \textbf{mean squared error} for iris data. The parameter "data\_vector" are the attributes we would like to take into account, it should be a dataframe of attributes.
-$w0, w1, w2$ define the weights of neural network. The parameter "pattern\_classes" is a dataframe of the category corresponding to the data\_vectors. The \textbf{mean\_square\_error} makes use of 
+$w_0, w_1, w_2$ define the weights of neural network. The parameter "pattern\_classes" is a dataframe of the category corresponding to the data\_vectors. The \textbf{mean\_square\_error} makes use of 
 the logistic non-linearity function in Problem 1.
 \begin{lstlisting}[language=Python, caption=Mean Squared Error Calculation]
 # data vectors in dataframe, pattern classes in list
 def mean_square_error(data_vectors, w0, w1, w2, pattern_classes):
     n = data_vectors.shape[0]
-    print("# of rows: ", n)
     data_vectors_list = data_vectors.values.tolist()
     pattern_classes_list = pattern_classes.tolist()
     temp_mse = 0
@@ -59,5 +59,21 @@ def mean_square_error(data_vectors, w0, w1, w2, pattern_classes):
 \end{lstlisting}
 
 \subsection*{(b)}
+To plot the linear boundary, we find the x-intercept and y-intercept by using the following code: 
+\begin{lstlisting}
+plot([0,-w0/w1],[-w0/w2,0])
+\end{lstlisting}
+\subsubsection*{2.b.1}
+The first set of weights we've chosen is $[-3.9, 0.46, 0.95]$. The mean squared error we concluded is 0.05. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the
+linear boundary generally seperates the two categories of iris. 
+\begin{center}
+    \includegraphics[scale=0.6]{fig/p2_b1.png}
+\end{center}
 
+\subsubsection*{2.b.2}
+The second set of weights we've chosen is $[-1, 0.7, 2]$. The mean squared error we concluded is 0.5. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the linear boundary does not seperate these two categories 
+at all. 
+\begin{center}
+    \includegraphics[scale=0.6]{fig/p2_b2.png}
+\end{center}
 \end{document}
