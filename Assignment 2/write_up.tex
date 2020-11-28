@@ -76,4 +76,27 @@ at all.
 \begin{center}
     \includegraphics[scale=0.6]{fig/p2_b2.png}
 \end{center}
+
+\subsection*{(c)}
+To compute the gradient of the objective function, we need to take the derivative of the objective function. Assume \textbf{x$_i$} is the ith row with attribute petal length and petal width such that $x_i = [1,x_{i1},x_{i2}]$($1$ is placed here because $w_0$ requires 1 to be its coefficient). \textbf{w} is the set of weights for the attributes. The logistic function we get is:
+\begin{center}
+    $\sigma(z) = \frac{1}{1+e^{-z}} = \frac{1}{1+e^{w \cdot x}}$
+\end{center}
+Therefore, the mean squared function becomes: 
+\begin{center}
+    $MSE = \frac{1}{N} \sum_{i = 1}^{n}(\sigma(w\cdot x_i)-y_i)^2$
+\end{center}
+By taking the derivative of this objective function with respect to $w_0$, we have: 
+\begin{center}
+    $\frac{\partial MSE}{\partial w_0} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)\frac{\partial \sigma}{\partial w_0}$ \\ 
+    $\frac{\partial MSE}{\partial w_0} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))\frac{\partial (w\cdot x)}{\partial w_0}$ \\ 
+    $\frac{\partial MSE}{\partial w_0} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))$
+\end{center}
+Similarly, by only changing the last derivative $\frac{\partial(w\cdot x)}{\partial w_0}$ to $\frac{\partial(w\cdot x)}{\partial w_1}$ and $\frac{\partial(w\cdot x)}{\partial w_2}$, we can compute the derivative of the objective function with respect to $w_1$ and $w_2$:
+\begin{center}
+    $\frac{\partial MSE}{\partial w_1} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i1}$
+    $\frac{\partial MSE}{\partial w_2} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i2}$
+\end{center} 
+
+\subsection*{(d)}
 \end{document}
