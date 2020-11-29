@@ -38,7 +38,7 @@ def plotclasses23() -> None:
 	plt.show()
 
 #Output of 0 for the 2nd iris class, and 1 for the 3rd.
-def zValue(species):
+def zValue(species:list) -> float:
     n = 1
     y = []
     for var in species:
@@ -51,14 +51,14 @@ def zValue(species):
     return y
 
 #sigmoid function
-def sigmoid(length:float, width: float) -> float:
+def sigmoid(length:float, width:float) -> float:
 	w = [-3.18, 0.30, 0.98]
 	z = w[0] + w[1] * length + w[2] * width
 	sigmoid = 1 / (1 + math.exp(-z))
 	return sigmoid
 
 #Exercise 1. b. computes the output of simple one-layer neural network
-def output(length:float, width: float) -> float: 
+def output(length:float, width:float) -> float: 
 	sig = sigmoid(length, width)
 	if (sig < 0.5):
 		return 0
@@ -66,7 +66,7 @@ def output(length:float, width: float) -> float:
 		return 1
 
 #Exercise 1. c. plot decision boundary
-def decisionBoundary(dataset: list) -> None:
+def decisionBoundary(dataset:list) -> None:
 	w = [-3.18, 0.30, 0.98]
 	x = dataset['petal_length']
 	y = [-(w[1] * x_value + w[0]/ w[2]) for x_value in x] 
@@ -83,7 +83,7 @@ def decisionBoundary(dataset: list) -> None:
 	plt.show()
 
 #Exercise 1. d. plot the output of neural network
-def plotNeuralNetwork(dataset: list) -> None: 
+def plotNeuralNetwork(dataset:list) -> None: 
 	ax = plt.gca(projection='3d')
 	
 	x = np.arange(3.0, 7.0, 0.01) 
@@ -105,7 +105,7 @@ def plotNeuralNetwork(dataset: list) -> None:
 	plt.show()
 
 #Exercise 1. e. show the output of your simple classifier using examples
-def examples(dataset: list) -> None:
+def examples(dataset:list) -> None:
 	# 4.8 1.8 versicolor
 	# 5.0 1.7 versicolor
 	# 3.5 1.0 versicolor
