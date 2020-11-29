@@ -27,14 +27,13 @@ virginica = data[data['species']=='virginica']
 
 #Exercise 1. a. plot the 2nd and 3rd iris classes
 def plotclasses23() -> None:
-    plt.plot(versicolor["petal_length"], versicolor["petal_width"], '*',label="versicolor", color = 'orange')
-    plt.plot(virginica["petal_length"], virginica["petal_width"], '+',label="virginica", color = 'blue')
-    plt.xlabel("petal length (cm)")
-    plt.ylabel("petal width (cm)")
-    plt.legend()
-    plt.show()
-
-#plotclasses23()
+	plt.plot(versicolor["petal_length"], versicolor["petal_width"], '*',label="versicolor", color = 'orange')
+	plt.plot(virginica["petal_length"], virginica["petal_width"], '+',label="virginica", color = 'blue')
+	plt.xlabel("petal length (cm)")
+	plt.ylabel("petal width (cm)")
+	plt.title("the 2nd and 3rd iris classes")
+	plt.legend()
+	plt.show()
 
 #function that computes the output of simple one-layer neural network
 def output(species):
@@ -52,13 +51,30 @@ def output(species):
 
 #Exercise 1. b. computes the output of simple one-layer neural network
 def logistic(length:float, width: float) -> float: 
-	w = [-3.9, 0.46, 0.95]
+	w = [-3.18, 0.30, 0.98]
 	z = (w[0] + (w[1]*length) + (w[2]*width))
 	sigmoid = 1 / (1 + math.exp(-z))
 	if (sigmoid < 0.5):
 		return 0
 	else:
 		return 1
+
+#Exercise 1. c. plot decision boundary
+def decisionBoundary(dataset: list) -> None:
+	w = [-3.18, 0.30, 0.98]
+	x = dataset['petal_length']
+	y = [-(w[1] * x_value + w[0]/ w[2]) for x_value in x] 
+
+	plt.plot(versicolor["petal_length"], versicolor["petal_width"], '*',label="versicolor", color = 'orange')
+	plt.plot(virginica["petal_length"], virginica["petal_width"], '+',label="virginica", color = 'blue')
+    
+	plt.plot(x, y, 'g-')
+
+	plt.title("decision boundary")
+	plt.xlabel('Petal Length (cm)')
+	plt.ylabel('Petal Width (cm)')
+
+	plt.show()
 
 #Exercise 1. d. plot the output of neural network
 def plotNeuralNetwork(dataset: list) -> None: 
@@ -85,7 +101,9 @@ def plotNeuralNetwork(dataset: list) -> None:
 
 def main() -> None:
 	class23 = data[data['species'] != 'setosa']
+	#print(class23)
 	plotclasses23()
+	decisionBoundary(class23)
 	plotNeuralNetwork(class23)
 
 main()
