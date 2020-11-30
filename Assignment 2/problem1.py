@@ -1,5 +1,7 @@
 import math
 import pandas as pd
+import math
+import pandas as pd
 import matplotlib.pyplot as plt 
 from mpl_toolkits import mplot3d 
 import seaborn as sns
@@ -79,7 +81,7 @@ def decisionBoundary(dataset:list) -> None:
 	plt.title("Decision Boundary")
 	plt.xlabel('Petal Length (cm)')
 	plt.ylabel('Petal Width (cm)')
-	plt.legend()
+	plt.legend(loc = 2)
 	plt.show()
 
 #Exercise 1. d. plot the output of neural network
@@ -160,14 +162,14 @@ def examples(dataset:list) -> None:
 	plt.title("Examples")
 	plt.xlabel('Petal Length (cm)')
 	plt.ylabel('Petal Width (cm)')
-	plt.legend()
+	plt.legend(loc = 2, prop={'size': 9})
 	plt.show()
 
 def main() -> None:
 	class23 = data[data['species'] != 'setosa']
 	plotclasses23()
 	decisionBoundary(class23)
-	plotNeuralNetwork(class23)
+	#plotNeuralNetwork(class23)
 	examples(class23)
 
 main()
