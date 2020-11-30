@@ -1,17 +1,9 @@
 import math
 import pandas as pd
-import math
-import pandas as pd
 import matplotlib.pyplot as plt 
 from mpl_toolkits import mplot3d 
-import seaborn as sns
 import numpy as np
-import sklearn.linear_model
-from sklearn.linear_model import LogisticRegression 
 from mpl_toolkits.mplot3d import *
-import matplotlib.cm as cm
-from matplotlib.colors import Normalize
-from matplotlib.lines import Line2D
 
 #load iris dataset
 data = pd.read_csv("/Users/tianxi/Desktop/irisdata.csv")
@@ -169,7 +161,7 @@ def main() -> None:
 	class23 = data[data['species'] != 'setosa']
 	plotclasses23()
 	decisionBoundary(class23)
-	#plotNeuralNetwork(class23)
+	plotNeuralNetwork(class23)
 	examples(class23)
 
 main()
