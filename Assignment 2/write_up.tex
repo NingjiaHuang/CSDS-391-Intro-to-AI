@@ -193,62 +193,58 @@ Thus, $z_i$ can be expressed as $z_i = (\sigma(\mathbf{Xw})-\mathbf{y})\star(1 -
 The code we used to calculate the gradient is as following: 
 \begin{lstlisting}[language=Python, caption=Calculate Gradient]
 def summed_gradient(x, w0, w1, w2, y): 
-    sg_w0, sg_w1, sg_w2 = [], [], []
-    n = x.shape[0]
+    sigmoid_list = []
+    n = len(x)
+    error_list = []
+    coefficient_list = []
     x = x.values.tolist()
     y = y.tolist()
-    sigma = one_layer_network(w0, w1, w2, x[0][0], x[0][1])
-    sg_w0.append((2/n) * (sigma - y[0]) * (1 - sigma) * sigma)
-    sg_w1.append((2/n) * ((sigma - y[0]) * (1 - sigma) * sigma) * x[0][0])
-    sg_w2.append((2/n) * ((sigma - y[0]) * (1 - sigma) * sigma) * x[0][1])
-    for i in range(1, n):
-        sigma = one_layer_network(w0, w1, w2, x[i][0], x[i][1])
-        sg_w0.append(sg_w0[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma)
-        sg_w1.append(sg_w1[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma * x[i][0])
-        sg_w2.append(sg_w2[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma * x [i][1])
-    return sg_w0[len(sg_w0)-1], sg_w1[len(sg_w1)-1], sg_w2[len(sg_w2)-1]
+    for i in range(len(x)): 
+        sigmoid_list.append(one_layer_network(w0, w1, w2, x[i][0], x[i][1]))
+        error_list.append(sigmoid_list[i] - y[i])
+        coefficient_list.append(error_list[i] * sigmoid_list[i] * (1 - sigmoid_list[i]))
+    # number of rows = number of rows in data vectors, number of columns = number of columns in data vector + 1 since 1 for bias coefficient
+    temp_matrix = np.ones((len(x), len(x[0]) + 1))
+    temp_matrix[:, 1:] = x
+    sum_term = np.zeros((len(x), len(x[0]) + 1))
+    for i in range(len(coefficient_list)):
+        sum_term[i] = (2/n) * temp_matrix[i] * coefficient_list[i]
+    return np.sum(sum_term, axis = 0)
 \end{lstlisting}
-To illustrate the gradient by showing how the decision boundary changes for a small step, we decreased the gradient by a rate of $0.01$ each time for 
-$5000$ iterations and plotted MSE v.s. number of iterations after each iteration. The weight we used are the same as the worse case in part (b), which is [-1, 0.7, 2].
-The graph we concluded is as following: 
+Let step size = 0.01. With the input weight $[w0, w1, w2] = [-5, 0.5, 2]$, we concluded the following table for the illustration of how the decision boundary changes for a small step: 
+\begin{center}
+    \begin{tabular}{| c | c | c |}
+        \hline
+        & old data & adjusted data\\
+        \hline
+        weights & [-5, 0.5, 2] & [-5.00080742  0.49665344  1.9989812] \\
+        \hline
+        MSE & 0.48802189762271864 & 0.4879972995169846 \\
+        \hline
+        decision boundary & m = -0.35, b = 0.5 & m = -0.3497940478, b = 0.500093299\\
+        \hline
+    \end{tabular}
+\end{center}
+As we can tell from the table, the mean squared error reduced a little bit as we made a small step. To visualize the change of decision boundary, please refer to the following graph: 
 \begin{center}
     \includegraphics[scale=0.6]{fig/p2e1.png}
 \end{center}
-
-\noindent The code we used to do this experiment is:
-\begin{lstlisting}[language=Python, caption=Illustrate the Change of Gradient's Impact on MSE]
-def illustrate_summed_gradient(x, w0, w1, w2, y): 
-    mse_list = []
+Since the small step is kind of hard to visualize, we run this process for $10000$ times in order to enlarge the difference. The following two graphs show the decision boundary before the
+adjustment and after the adjustment: 
+\begin{center}
+    \includegraphics[scale=0.4]{fig/p2e2.png} 
+    \includegraphics[scale=0.4]{fig/p2e3.png}
+\end{center}
+The code we used for this illustration is: 
+\begin{lstlisting}[language=Python, caption=Illustration of the Change of Gradient]
+def illustrate_summed_gradient(x, w0, w1, w2, y):
     num_of_iter = []
-    print("MSE before iterations: ", mean_square_error(x, w0, w1, w2, y), "w0, w1, w2: ", w0, w1, w2)
-    for i in range(5000): 
-        num_of_iter.append(i + 1)
+    for i in range(10000):
+        num_of_iter.append(i+1)
         temp1, temp2, temp3 = summed_gradient(x, w0, w1, w2, y)
         w0 = w0 - 0.01 * temp1
         w1 = w1 - 0.01 * temp2
         w2 = w2 - 0.01 * temp3
-        mse = mean_square_error(x, w0, w1, w2, y)
-        mse_list.append(mse)
-        print("MSE after iterations:", mse, "w0, w1, w2: ", w0, w1, w2)
-    plt.xlabel("# of iterations")
-    plt.ylabel("MSE")
-    plt.title("Mean Squared Error v.s. # of Iterations")
-    plt.plot(num_of_iter, mse_list)
-    plt.legend()
-    plt.show()
-\end{lstlisting}
-
-\noindent Partial outputs are as following: \\
-MSE after iterations: 0.14766977305500825 \\
-\dots \\
-MSE after iterations: 0.14238528888944216 \\
-MSE after iterations: 0.14238028834557848 \\
-
-\noindent To further illustrate the relationship between gradient and the decision boundary, we also plotted the decision boundary before and after the 5000 iterations. 
-The plot before 5000 iteration can be found in section 2.b.2 and for the sake of simplicity we will not include it again in this section. The plot after 5000 
-iterations is as following: 
-\begin{center}
-    
-\end{center}
-
+    plot([0,-w0/w1],[-w0/w2,0])
+    \end{lstlisting}
 \end{document}
