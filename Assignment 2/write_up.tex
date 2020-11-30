@@ -3,6 +3,8 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{amsmath}
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -60,18 +62,18 @@ def mean_square_error(data_vectors, w0, w1, w2, pattern_classes):
 
 \subsection*{(b)}
 To plot the linear boundary, we find the x-intercept and y-intercept by using the following code: 
-\begin{lstlisting}
+\begin{lstlisting}[language=Python, caption=Plot Mean Squared Error]
 plot([0,-w0/w1],[-w0/w2,0])
 \end{lstlisting}
 \subsubsection*{2.b.1}
-The first set of weights we've chosen is $[-3.9, 0.46, 0.95]$. The mean squared error we concluded is 0.05. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the
+The first set of weights we've chosen is $[-3.9, 0.46, 0.95]$. The mean squared error we concluded is 0.13235245817007218. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the
 linear boundary generally seperates the two categories of iris. 
 \begin{center}
     \includegraphics[scale=0.6]{fig/p2_b1.png}
 \end{center}
 
 \subsubsection*{2.b.2}
-The second set of weights we've chosen is $[-1, 0.7, 2]$. The mean squared error we concluded is 0.5. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the linear boundary does not seperate these two categories 
+The second set of weights we've chosen is $[-1, 0.7, 2]$. The mean squared error we concluded is 0.48802189762271864. The following figure shows the linear boundary with our chosen set of weights. As we can tell from the graph, the linear boundary does not seperate these two categories 
 at all. 
 \begin{center}
     \includegraphics[scale=0.6]{fig/p2_b2.png}
@@ -97,6 +99,156 @@ Similarly, by only changing the last derivative $\frac{\partial(w\cdot x)}{\part
     $\frac{\partial MSE}{\partial w_1} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i1}$
     $\frac{\partial MSE}{\partial w_2} = \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i2}$
 \end{center} 
+Therefore, the gradient of MSE is: 
+\begin{center}
+    $\nabla MSE = \left[\begin{array}{@{}c@{}}
+        \frac{\partial MSE}{\partial w_0} \\ \\
+        \frac{\partial MSE}{\partial w_1} \\ \\
+        \frac{\partial MSE}{\partial w_2} 
+        \end{array} \right] = \left[\begin{array}{@{}c@{}}
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i)) \\ \\
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i1} \\ \\ 
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i2}
+        \end{array} \right]$
+\end{center}
 
 \subsection*{(d)}
+\subsubsection*{scalar form: }
+The scalar form of the gradient is computed in Problem 2 (c): 
+\begin{center}
+    $\nabla MSE = \left[\begin{array}{@{}c@{}}
+        \frac{\partial MSE}{\partial w_0} \\ \\
+        \frac{\partial MSE}{\partial w_1} \\ \\
+        \frac{\partial MSE}{\partial w_2} 
+        \end{array} \right] = \left[\begin{array}{@{}c@{}}
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i)) \\ \\
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i1} \\ \\ 
+            \frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))x_{i2}
+        \end{array} \right]$
+\end{center}
+
+\subsubsection*{vector form: }
+Let $X = \left[\begin{array}{@{}c@{}}
+        x_{11}, x_{12}, 1 \\
+        \dots \\
+        x_{n1}, x_{n2}, 1
+         \end{array} \right]$, which is a matrix represents the attributes(1 corresponds for bias).
+Since the term $\frac{2}{N}\sum_{i=1}^{N}(\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))$ is independent of the dimension
+$j$ and common for $\frac{\partial MSE}{\partial w_0}$, $\frac{\partial MSE}{\partial w_1}$, and $\frac{\partial MSE}{\partial w_2}$, we can first express 
+this term as $z_i = (\sigma(w \cdot x_i)-y_i)(1-\sigma(w \cdot x_i))(\sigma(w\cdot x_i))$. The gradient of MSE becomes: 
+\begin{center}
+    $\nabla MSE = \frac{2}{m} \left[\begin{array}{@{}c@{}}
+                \sum_{i=1}^{N} z_i \\
+                \sum_{i=1}^{N} z_{i}x_{i1} \\
+                \sum_{i=1}^{N} z_{i}x_{i2}
+                \end{array} \right] = \frac{2}{m}\left[\begin{array}{@{}c@{}}
+                                     1, \dots, 1 \\
+                                     x_{11}, \dots, x_{n1} \\
+                                     x_{12}, \dots, x_{n2}
+                                     \end{array} \right] \left[\begin{array}{@{}c@{}}
+                                                         z_1 \\
+                                                         \dots \\
+                                                         z_n
+                                                         \end{array}\right] = \frac{2}{m}\mathbf{X^{T}}\left[\begin{array}{@{}c@{}}
+                                                            z_1 \\
+                                                            \dots \\
+                                                            z_n
+                                                            \end{array}\right] $
+\end{center}
+Then, we attempt to expand the vector $z_i = \left[\begin{array}{@{}c@{}}
+                                             z_1 \\
+                                             \dots \\
+                                             z_n
+                                             \end{array} \right]$ :
+\begin{center}
+    $z_i = \left[\begin{array}{@{}c@{}}
+            (\sigma(\mathbf{w \cdot x_1})-y_1)(1-\sigma(\mathbf{w \cdot x_1}))(\sigma(\mathbf{w\cdot x_1})) \\
+            \dots \\
+            (\sigma(\mathbf{w \cdot x_n})-y_n)(1-\sigma(\mathbf{w \cdot x_n}))(\sigma(\mathbf{w\cdot x_n})) 
+            \end{array} \right]= \left[\begin{array}{@{}c@{}}
+                                 \sigma(\mathbf{w \cdot x_1})-y_1 \\ 
+                                 \dots \\
+                                 \sigma(\mathbf{w \cdot x_n})-y_n
+                                 \end{array} \right] \star \left[\begin{array}{@{}c@{}}
+                                                           1-\sigma(\mathbf{w \cdot x_1}) \\
+                                                           \dots \\
+                                                           1-\sigma(\mathbf{w \cdot x_n})
+                                                           \end{array} \right] \star \left[\begin{array}{@{}c@{}}
+                                                                                     \sigma(\mathbf{w\cdot x_1}) \\
+                                                                                     \dots \\
+                                                                                     \sigma(\mathbf{w\cdot x_n})
+                                                                                     \end{array} \right]$
+\end{center}
+The $\star$ operation is defined as multiplying the ith row's elements. To simplify the expression, let $\sigma(\mathbf{Xw}) = \left[\begin{array}{@{}c@{}}
+                                                                                                         \sigma(\mathbf{w^{T}x_1}) \\
+                                                                                                         \dots \\
+                                                                                                         \sigma(\mathbf{w^{T}x_n})
+                                                                                                         \end{array} \right]$. 
+Thus, $z_i$ can be expressed as $z_i = (\sigma(\mathbf{Xw})-\mathbf{y})\star(1 - \sigma(\mathbf{Xw}))\star \sigma(\mathbf{Xw})$. The vector form of gradient can be expressed as: 
+\begin{center}
+    $\nabla MSE = \frac{2}{m}\mathbf{X^T}(\sigma(\mathbf{Xw})-\mathbf{y})\star (\mathbf{1} - \sigma(\mathbf{Xw}))\star \sigma(\mathbf{Xw})$
+\end{center}
+
+\subsection*{(e)}
+The code we used to calculate the gradient is as following: 
+\begin{lstlisting}[language=Python, caption=Calculate Gradient]
+def summed_gradient(x, w0, w1, w2, y): 
+    sg_w0, sg_w1, sg_w2 = [], [], []
+    n = x.shape[0]
+    x = x.values.tolist()
+    y = y.tolist()
+    sigma = one_layer_network(w0, w1, w2, x[0][0], x[0][1])
+    sg_w0.append((2/n) * (sigma - y[0]) * (1 - sigma) * sigma)
+    sg_w1.append((2/n) * ((sigma - y[0]) * (1 - sigma) * sigma) * x[0][0])
+    sg_w2.append((2/n) * ((sigma - y[0]) * (1 - sigma) * sigma) * x[0][1])
+    for i in range(1, n):
+        sigma = one_layer_network(w0, w1, w2, x[i][0], x[i][1])
+        sg_w0.append(sg_w0[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma)
+        sg_w1.append(sg_w1[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma * x[i][0])
+        sg_w2.append(sg_w2[i-1] + (2/n) * (sigma - y[i]) * (1 - sigma) * sigma * x [i][1])
+    return sg_w0[len(sg_w0)-1], sg_w1[len(sg_w1)-1], sg_w2[len(sg_w2)-1]
+\end{lstlisting}
+To illustrate the gradient by showing how the decision boundary changes for a small step, we decreased the gradient by a rate of $0.01$ each time for 
+$5000$ iterations and plotted MSE v.s. number of iterations after each iteration. The weight we used are the same as the worse case in part (b), which is [-1, 0.7, 2].
+The graph we concluded is as following: 
+\begin{center}
+    \includegraphics[scale=0.6]{fig/p2e1.png}
+\end{center}
+
+\noindent The code we used to do this experiment is:
+\begin{lstlisting}[language=Python, caption=Illustrate the Change of Gradient's Impact on MSE]
+def illustrate_summed_gradient(x, w0, w1, w2, y): 
+    mse_list = []
+    num_of_iter = []
+    print("MSE before iterations: ", mean_square_error(x, w0, w1, w2, y), "w0, w1, w2: ", w0, w1, w2)
+    for i in range(5000): 
+        num_of_iter.append(i + 1)
+        temp1, temp2, temp3 = summed_gradient(x, w0, w1, w2, y)
+        w0 = w0 - 0.01 * temp1
+        w1 = w1 - 0.01 * temp2
+        w2 = w2 - 0.01 * temp3
+        mse = mean_square_error(x, w0, w1, w2, y)
+        mse_list.append(mse)
+        print("MSE after iterations:", mse, "w0, w1, w2: ", w0, w1, w2)
+    plt.xlabel("# of iterations")
+    plt.ylabel("MSE")
+    plt.title("Mean Squared Error v.s. # of Iterations")
+    plt.plot(num_of_iter, mse_list)
+    plt.legend()
+    plt.show()
+\end{lstlisting}
+
+\noindent Partial outputs are as following: \\
+MSE after iterations: 0.14766977305500825 \\
+\dots \\
+MSE after iterations: 0.14238528888944216 \\
+MSE after iterations: 0.14238028834557848 \\
+
+\noindent To further illustrate the relationship between gradient and the decision boundary, we also plotted the decision boundary before and after the 5000 iterations. 
+The plot before 5000 iteration can be found in section 2.b.2 and for the sake of simplicity we will not include it again in this section. The plot after 5000 
+iterations is as following: 
+\begin{center}
+    
+\end{center}
+
 \end{document}
