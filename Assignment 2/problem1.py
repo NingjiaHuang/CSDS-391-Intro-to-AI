@@ -112,29 +112,45 @@ def examples(dataset:list) -> None:
 	# 3.8 1.1 versicolor
 	versicolorLength = [4.8, 5.0, 3.5, 3.8]
 	versicolorWidth = [1.8, 1.7, 1.0, 1.1]
+	l1 = []
+	w1 = []
+	l2 = []
+	w2 = []
 	z = []
 	for var1, var2 in zip(versicolorLength, versicolorWidth):
 		z.append(output(var1, var2))
 	for var1, var2, var3 in zip(versicolorLength, versicolorWidth, z):
 		if (var3 == 0):
-			plt.plot(var1, var2, '*',label="versicolor, classified as versicolor", color = 'orange')
+			l1.append(var1)
+			w1.append(var2)
 		else:
-			plt.plot(var1, var2, '*',label="versicolor, classified as virginica", color = 'blue')
-	
+			l2.append(var1)
+			w2.append(var2)
+	plt.plot(l1, w1, '*',label="versicolor, classified as versicolor", color = 'orange')
+	plt.plot(l2, w2, '*',label="versicolor, classified as virginica", color = 'blue')
+		
 	# 5.1 1.8 virginica
 	# 5.0 1.5 virginica
 	# 4.9 1.8 virginica
 	# 5.9 2.3 virginica
 	virginicaLength = [5.1, 5.0, 4.9, 5.9]
 	virginicaWidth = [1.8, 1.5, 1.8, 2.3]
+	l3 = []
+	w3 = []
+	l4 = []
+	w4 = []
 	z = []
 	for var1, var2 in zip(virginicaLength, virginicaWidth):
 		z.append(output(var1, var2))
 	for var1, var2, var3 in zip(virginicaLength, virginicaWidth, z):
 		if (var3 == 0):
-			plt.plot(var1, var2, '+',label="virginica, classified as versicolor", color = 'orange')
+			l3.append(var1)
+			w3.append(var2)
 		else:
-			plt.plot(var1, var2, '+',label="virginica, classified as virginica", color = 'blue')
+			l4.append(var1)
+			w4.append(var2)
+	plt.plot(l3, w3, '+',label="virginica, classified as versicolor", color = 'orange')
+	plt.plot(l4, w4, '+',label="virginica, classified as virginica", color = 'blue')
 
 	w = [-3.18, 0.30, 0.98]
 	x = dataset['petal_length']
@@ -144,6 +160,7 @@ def examples(dataset:list) -> None:
 	plt.title("Examples")
 	plt.xlabel('Petal Length (cm)')
 	plt.ylabel('Petal Width (cm)')
+	plt.legend()
 	plt.show()
 
 def main() -> None:
