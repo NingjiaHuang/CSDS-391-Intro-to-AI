@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
 import math
+import numpy.linalg as la
 
 def read_data():
     df = pd.read_csv('irisdata.csv')
@@ -60,7 +61,7 @@ def summed_gradient(x, w0, w1, w2, y):
     temp_matrix[:, 1:] = x
     sum_term = np.zeros((len(x), len(x[0]) + 1))
     for i in range(len(coefficient_list)):
-        sum_term[i] = (2/n) * temp_matrix[i] * coefficient_list[i]
+        sum_term[i] = temp_matrix[i] * coefficient_list[i]
     return np.sum(sum_term, axis = 0)
 
 def illustrate_summed_gradient(x, w0, w1, w2, y):
@@ -78,31 +79,83 @@ def calc_slope_b(w0, w1, w2):
     b = -w0/w2
     return slope, b
 
+def square_error(data_vectors, w0, w1, w2, pattern_classes): 
+    pattern_classes_list = pattern_classes.tolist()
+    data_vectors_list = data_vectors.values.tolist()
+    error = 0
+    n = len(pattern_classes_list)
+    for i in range(n):
+        error = error + np.square(pattern_classes_list[i] - one_layer_network(w0, w1, w2, data_vectors_list[i][0], data_vectors_list[i][1]))
+    return error * 0.5
+
+def armijo_updating(a, b, x, y, w0, w1, w2):
+    step_size = a
+    gradient = summed_gradient(x, w0, w1, w2, y)
+    while square_error(x, w0 - (step_size * gradient[0]), w1 - (step_size * gradient[1]), w2 - (step_size * gradient[2]), y) > square_error(x, w0, w1, w2, y) - (0.5 * step_size * la.norm(gradient) ** 2):
+        step_size = step_size * b
+    return step_size
+
+def gradient_descent(a, b, x, w0, w1, w2, y): 
+    precision = 0.001 # mse we would like to reach
+    max_iters = 20000 # max number of iterations
+    iteration_counter = 0
+    step_size = 0 # using armijo to update
+    return_w = []
+    current_w = [w0,w1,w2]
+    current_mse = mean_square_error(x, w0, w1, w2, y)
+    current_sum_g = summed_gradient(x, w0, w1, w2, y)
+    improv_checker = 1 # check whether performed better
+    # if current mse > the precision we defined and the number of iteration does not exceed the max iteration
+    # execute the gradient descent
+    while mean_square_error(x, w0, w1, w2, y) > precision and iteration_counter < max_iters:
+        if improv_checker > 0:
+            return_w = current_w
+        iteration_counter += 1
+        temp0, temp1, temp2 = summed_gradient(x, w0, w1, w2, y)
+        step_size = armijo_updating(a, b, x, y, w0, w1, w2)
+        w0 = w0 -  step_size * temp0
+        w1 = w1 -  step_size * temp1
+        w2 = w2 - step_size * temp2
+        current_w = [w0,w1,w2]
+        next_mse = mean_square_error(x, w0, w1, w2, y)
+        improv_checker = current_mse - next_mse
+        current_mse = next_mse
+        current_sum_g = summed_gradient(x, w0, w1, w2, y)
+        print(w0, w1, w2, mean_square_error(x, w0, w1, w2, y))
+        if improv_checker > 0:
+            return_w = current_w
+    plot([0,-w0/w1],[-w0/w2,0])
+    print("MSE: ", mean_square_error(x, w0, w1, w2, y))
+    return return_w
+
 def main():
     x, y = iris_customize()
-    # w0 = -5.00080742
-    # w1 = 0.49665344
-    # w2 = 1.9989812
-    # old_weight = []
-    w0 = -5
-    w1 = 0.5
+    w0 = -1
+    w1 = 0.7
     w2 = 2
-    old_weight = []
-    old_weight.append(w0)
-    old_weight.append(w1)
-    old_weight.append(w2)
-    print("Old weight: ", old_weight)
-    new_weight = old_weight - 0.01 * summed_gradient(x, w0, w1, w2, y)
-    print("New weight: ", new_weight)
-    # # illustrate_summed_gradient(x, w0, w1, w2, y)
-    # # plot([0,-w0/w1],[-w0/w2,0])
-    mse1 = mean_square_error(x, -1, 0.7, 2, y)
-    print("Old MSE: ", mse1)
-    print("Decision Boundary: ", calc_slope_b(-1, 0.7, 2))
-    mse2 = mean_square_error(x, -1.00011645, 0.69953903, 1.99985973, y)
-    print("Decision Boundary: ", calc_slope_b(-1.00011645, 0.69953903, 1.99985973))
-    print("New MSE: ", mse2)
-    illustrate_summed_gradient(x, w0, w1, w2, y)
+    # gradient_descent(x, w0, w1, w2, y)
+    # old_weight = []
+    # w0 = -5
+    # w1 = 0.5
+    # w2 = 2
+    # old_weight = []
+    # old_weight.append(w0)
+    # old_weight.append(w1)
+    # old_weight.append(w2)
+    # print("Old weight: ", old_weight)
+    # new_weight = old_weight - 0.01 * summed_gradient(x, w0, w1, w2, y)
+    # print("New weight: ", new_weight)
+    # # # illustrate_summed_gradient(x, w0, w1, w2, y)
+    # plot([0, 30.8786102/3.9227226],[30.8786102/7.15813436,0])
+    # armijo_updating(1, 0.5, x, y, -3.9, 0.46, 0.95)
+    gradient_descent(1, 0.5, x, w0, w1, w2, y)
+    # mse1 = mean_square_error(x, -1, 0.7, 2, y)
+    # print("Old MSE: ", mse1)
+    # print("Decision Boundary: ", calc_slope_b(-1, 0.7, 2))
+    # mse2 = mean_square_error(x, -1.00011645, 0.69953903, 1.99985973, y)
+    # print("Decision Boundary: ", calc_slope_b(-1.00011645, 0.69953903, 1.99985973))
+    # print("New MSE: ", mse2)
+    # illustrate_summed_gradient(x, w0, w1, w2, y)
 
 
     # df = read_data()
@@ -113,7 +166,7 @@ def main():
     # plt.xlabel("petal length (cm)")
     # plt.ylabel("petal width (cm)")
     # plt.plot([0,-w0/w1],[-w0/w2,0], label='unadjusted decision boundary', color='purple')
-    # plt.plot([0, 5.00080742/0.49665344], [5.00080742/1.9989812, 0], label='adjusted decision boundary', color='olive')
+    # plot([0, 34.64007963/4.51954316], [34.64007963/7.67111925, 0])
     # plt.legend()
     # plt.show()
 

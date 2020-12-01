@@ -4,6 +4,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{hyperref}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -229,7 +230,7 @@ As we can tell from the table, the mean squared error reduced a little bit as we
 \begin{center}
     \includegraphics[scale=0.6]{fig/p2e1.png}
 \end{center}
-Since the small step is kind of hard to visualize, we run this process for $10000$ times in order to enlarge the difference. The following two graphs show the decision boundary before the
+Since the small step is kind of hard to tell, we run this process for $10000$ times in order to enlarge the difference. The following two graphs show the decision boundary before the
 adjustment and after the adjustment: 
 \begin{center}
     \includegraphics[scale=0.4]{fig/p2e2.png} 
@@ -246,5 +247,81 @@ def illustrate_summed_gradient(x, w0, w1, w2, y):
         w1 = w1 - 0.01 * temp2
         w2 = w2 - 0.01 * temp3
     plot([0,-w0/w1],[-w0/w2,0])
-    \end{lstlisting}
+\end{lstlisting}
+
+\section*{Problem 3: }
+\subsection*{(a)}
+The code for gradient descent is as following: 
+\begin{lstlisting}[language=Python, caption=Gradient Descent]
+def gradient_descent(a, b, x, w0, w1, w2, y): 
+    precision = 0.001 # mse we would like to reach
+    max_iters = 20000 # max number of iterations
+    iteration_counter = 0
+    step_size = 0 # using armijo to update
+    return_w = []
+    current_w = [w0,w1,w2]
+    current_mse = mean_square_error(x, w0, w1, w2, y)
+    current_sum_g = summed_gradient(x, w0, w1, w2, y)
+    improv_checker = 1 # check whether performed better
+    # if current mse > the precision we defined and the number of iteration does not exceed the max iteration execute the gradient descent
+    while mean_square_error(x, w0, w1, w2, y) > precision and iteration_counter < max_iters:
+        if improv_checker > 0:
+            return_w = current_w
+        iteration_counter += 1
+        temp0, temp1, temp2 = summed_gradient(x, w0, w1, w2, y)
+        step_size = armijo_updating(a, b, x, y, w0, w1, w2)
+        w0 = w0 -  step_size * temp0
+        w1 = w1 -  step_size * temp1
+        w2 = w2 - step_size * temp2
+        current_w = [w0,w1,w2]
+        next_mse = mean_square_error(x, w0, w1, w2, y)
+        improv_checker = current_mse - next_mse
+        current_mse = next_mse
+        current_sum_g = summed_gradient(x, w0, w1, w2, y)
+        print(w0, w1, w2, mean_square_error(x, w0, w1, w2, y))
+        if improv_checker > 0:
+            return_w = current_w
+    plot([0,-w0/w1],[-w0/w2,0])
+    print("MSE: ", mean_square_error(x, w0, w1, w2, y))
+    return return_w
+\end{lstlisting}
+The basic idea is to specify a precision(in this case, mean squared error) and maximum number of iterations we would like to perform. We use the 
+summed\_gradient() function and the step size to update the weight in order to reduce the mse. The step size is a dynamic value obtained by using 
+Armijo algorithm, which will be illustrated in section 3.d. \\
+The following graph is a sample result using the gradient\_descent() function on the example in section 2.b.2.:
+\begin{center}
+    \includegraphics[scale=0.5]{fig/p3a1.png}
+\end{center}
+
+\subsection*{(b)}
+
+
+\subsection*{(d)}
+The choice of gradient step size is important because if the step size is too large, the algorithm will not converge and jump around the minimum;
+if the step size is too small, the convergence will take place pretty slowly. Therefore, instead of using a constant step size, we decided to adjusted
+our step size while running the algorithm. To choose the step size, we used back-tracking inexact line search with
+Armijo rule(please refer to the article: \href{http://www.cmap.polytechnique.fr/~dimo.brockhoff/introoptimization/exercises/09-descentalgorithms-exercise.pdf}{Back-tracking with Armijo rule}). \\
+The basic idea is to start with a relatively large step size $\alpha_0$ and subtract $\beta^k\alpha$ for $k = 1$ to $n$ until a stopping condition(in this case, smaller than a predefined mse) is met. 
+Choose the largest step size for $\alpha$. The stopping step can be expressed as the following formula: 
+\begin{center}
+    $f(\mathbf{x} + \alpha \mathbf{d}) \le f(\mathbf{x}) + \beta \alpha \nabla f(\mathbf{x})^{T}\mathbf{d}$
+\end{center}
+, where $f$ is the objective function, $d$ is the descent direction, $\alpha$ and $\beta$ are the parameters of Armijo algorithm. For the problem of iris dataset, we can rewrite the above function as following
+in order to update the step size: 
+\begin{center}
+    $f(\mathbf{w - \alpha \nabla\mathbf{w}}) \le f(\mathbf{w})-\beta\alpha\nabla f(\mathbf{x})^{T}f(\mathbf{x})$
+\end{center}
+, where $w$ is the weight. Since $\beta$ is between $0$ and $1$, while the mean squared error converges to the minimum, the step size decreases. \\
+The following code implements the Armijo algorithm: 
+\begin{lstlisting}[language=Python, caption=Armijo Updating Step Size]
+def armijo_updating(a, b, x, y, w0, w1, w2):
+    step_size = a
+    gradient = summed_gradient(x, w0, w1, w2, y)
+    while mean_square_error(x, w0 - (step_size * gradient[0]), w1 - (step_size * gradient[1]), w2 - (step_size * gradient[2]), y) > mean_square_error(x, w0, w1, w2, y) - (0.5 * step_size * la.norm(gradient) ** 2):
+        step_size = step_size * b
+    return step_size
+\end{lstlisting}
+
+\subsection*{(e)}
+
 \end{document}
