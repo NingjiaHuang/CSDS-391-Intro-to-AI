@@ -294,7 +294,46 @@ The following graph is a sample result using the gradient\_descent() function on
 \end{center}
 
 \subsection*{(b)}
+Since we need to plot the objective function, we revised the code in section 3.a by adding a return element $mse\_list$, which is a list storing the mean 
+squared error after each iteration.
+\begin{lstlisting}[language=Python, caption=Visualize the Change of Decision Boundary and Objective Function]
+def plot_gradient_descent(a, b, x, w0, w1, w2, y):
+    df = read_data()
+    versicolor = df[df['species']=='versicolor']
+    virginica = df[df['species']=='virginica']
+    plt.plot(versicolor["petal_length"], versicolor["petal_width"], '*',label="versicolor", color = 'orange')
+    plt.plot(virginica["petal_length"], virginica["petal_width"], '+',label="virginica", color = 'blue')
+    # plot the decision boundary
+    plt.xlabel("petal length (cm)")
+    plt.ylabel("petal width (cm)")
+    plt.plot([0, -w0/w1],[-w0/w2, 0], label="initial boundary", color='purple')
+    mid_w, mse_list = gradient_descent(1, 0.5, 10000, 0.001, x, w0, w1, w2, y)
+    mid_w0, mid_w1, mid_w2 = mid_w[0], mid_w[1], mid_w[2]
+    plt.plot([0, -mid_w0/mid_w1],[-mid_w0/mid_w2, 0], label="middle boundary", color='skyblue')
+    fin_w, mse_list = gradient_descent(1, 0.5, 20000, 0.001, x, w0, w1, w2, y)
+    fin_w0, fin_w1, fin_w2 = fin_w[0], fin_w[1], fin_w[2]
+    plt.plot([0, -fin_w0/fin_w1],[-fin_w0/fin_w2, 0], label="final boundary", color='olive')
+    # plot the change of objective function
+    plt.plot(mse_list)
+    plt.xlabel("Number of Iterations")
+    plt.ylabel("Objective Function(MSE)")    
+    plt.legend()
+    plt.show()
+\end{lstlisting}
+The demonstration of the correctness of this code is in section 3.c. 
 
+\subsection*{(c)}
+In this illustration, we select the initial weight to be $[-1, 0.7, 2]$, which is the same example we selected in section 2.b.2. We also select the parameter $a = 1$ and 
+$b = 0.5$. The middle boundary for the objective function occurs when the number of iterations is $10000$(since the total number of iterations we select is $20000$).
+\begin{center}
+    \includegraphics[scale=0.35]{fig/p3b1.png}
+    \includegraphics[scale=0.35]{fig/p3b2.png}
+\end{center}
+To further illustrate the correctness of our code, we select another set of initial weight $[-8, 0.6, 1]$. Select $a = 1$ and $b = 0.5$ and run for $20000$ iterations, we have: 
+\begin{center}
+    \includegraphics[scale=0.35]{fig/p3c3.png}
+    \includegraphics[scale=0.35]{fig/p3c4.png}
+\end{center}
 
 \subsection*{(d)}
 The choice of gradient step size is important because if the step size is too large, the algorithm will not converge and jump around the minimum;
@@ -321,7 +360,15 @@ def armijo_updating(a, b, x, y, w0, w1, w2):
         step_size = step_size * b
     return step_size
 \end{lstlisting}
+The step size does not assure us to find the global minimum since the step size could be too large for the final step(but by using the Armijo Updating algorithm,
+it performs much better than just select a constant stepping size). Note in the $gradient\_descent$ function, if the final iteration makes an improvement, then we will adopt it; otherwise, we won't. This ensures us to be as close to the global minimum of the objective function
+as possible. 
 
 \subsection*{(e)}
+The stopping criterion(in our code, it is represented as precision) we chose is $0.001$ for precision(or tolerance of error) and $20000$ for the number of iterations because it is a good balance between the time consumed to run the code and the precision of the decision boundary. As we illustrated in the graphs above, a precision of 
+$0.001$ is sufficient to classify the categories relatively accurate. If we select a much smaller precision or a much larger number of maximum iterations, it will take too much time to make just a little bit of improvement. As we can see from the graph of objective functions, after a certain threshold of 
+number of iterations, the improvement we made is actually trivial. 
+
+\section*{Problem 4(Extra Credit): }
 
 \end{document}

@@ -95,15 +95,17 @@ def armijo_updating(a, b, x, y, w0, w1, w2):
         step_size = step_size * b
     return step_size
 
-def gradient_descent(a, b, x, w0, w1, w2, y): 
-    precision = 0.001 # mse we would like to reach
-    max_iters = 20000 # max number of iterations
+def gradient_descent(a, b, max_iter, prec, x, w0, w1, w2, y): 
+    precision = prec # mse we would like to reach
+    max_iters = max_iter # max number of iterations
     iteration_counter = 0
     step_size = 0 # using armijo to update
     return_w = []
     current_w = [w0,w1,w2]
     current_mse = mean_square_error(x, w0, w1, w2, y)
     current_sum_g = summed_gradient(x, w0, w1, w2, y)
+    mse_list = []
+    mse_list.append(mean_square_error(x, w0, w1, w2, y))
     improv_checker = 1 # check whether performed better
     # if current mse > the precision we defined and the number of iteration does not exceed the max iteration
     # execute the gradient descent
@@ -118,21 +120,42 @@ def gradient_descent(a, b, x, w0, w1, w2, y):
         w2 = w2 - step_size * temp2
         current_w = [w0,w1,w2]
         next_mse = mean_square_error(x, w0, w1, w2, y)
+        mse_list.append(next_mse)
         improv_checker = current_mse - next_mse
         current_mse = next_mse
         current_sum_g = summed_gradient(x, w0, w1, w2, y)
-        print(w0, w1, w2, mean_square_error(x, w0, w1, w2, y))
         if improv_checker > 0:
             return_w = current_w
-    plot([0,-w0/w1],[-w0/w2,0])
-    print("MSE: ", mean_square_error(x, w0, w1, w2, y))
-    return return_w
+    return return_w, mse_list
+
+def plot_gradient_descent(a, b, x, w0, w1, w2, y):
+    df = read_data()
+    versicolor = df[df['species']=='versicolor']
+    virginica = df[df['species']=='virginica']
+    plt.plot(versicolor["petal_length"], versicolor["petal_width"], '*',label="versicolor", color = 'orange')
+    plt.plot(virginica["petal_length"], virginica["petal_width"], '+',label="virginica", color = 'blue')
+    # plot the decision boundary
+    plt.xlabel("petal length (cm)")
+    plt.ylabel("petal width (cm)")
+    plt.plot([0, -w0/w1],[-w0/w2, 0], label="initial boundary", color='purple')
+    mid_w, mse_list = gradient_descent(1, 0.5, 10000, 0.001, x, w0, w1, w2, y)
+    mid_w0, mid_w1, mid_w2 = mid_w[0], mid_w[1], mid_w[2]
+    plt.plot([0, -mid_w0/mid_w1],[-mid_w0/mid_w2, 0], label="middle boundary", color='skyblue')
+    fin_w, mse_list = gradient_descent(1, 0.5, 20000, 0.001, x, w0, w1, w2, y)
+    fin_w0, fin_w1, fin_w2 = fin_w[0], fin_w[1], fin_w[2]
+    plt.plot([0, -fin_w0/fin_w1],[-fin_w0/fin_w2, 0], label="final boundary", color='olive')
+    # plot the change of objective function
+    # plt.plot(mse_list)
+    # plt.xlabel("Number of Iterations")
+    # plt.ylabel("Objective Function(MSE)")    
+    plt.legend()
+    plt.show()
 
 def main():
     x, y = iris_customize()
-    w0 = -1
-    w1 = 0.7
-    w2 = 2
+    w0 = -8
+    w1 = 0.6
+    w2 = 1
     # gradient_descent(x, w0, w1, w2, y)
     # old_weight = []
     # w0 = -5
@@ -148,7 +171,7 @@ def main():
     # # # illustrate_summed_gradient(x, w0, w1, w2, y)
     # plot([0, 30.8786102/3.9227226],[30.8786102/7.15813436,0])
     # armijo_updating(1, 0.5, x, y, -3.9, 0.46, 0.95)
-    gradient_descent(1, 0.5, x, w0, w1, w2, y)
+    plot_gradient_descent(1, 0.5, x, w0, w1, w2, y)
     # mse1 = mean_square_error(x, -1, 0.7, 2, y)
     # print("Old MSE: ", mse1)
     # print("Decision Boundary: ", calc_slope_b(-1, 0.7, 2))
@@ -166,7 +189,7 @@ def main():
     # plt.xlabel("petal length (cm)")
     # plt.ylabel("petal width (cm)")
     # plt.plot([0,-w0/w1],[-w0/w2,0], label='unadjusted decision boundary', color='purple')
-    # plot([0, 34.64007963/4.51954316], [34.64007963/7.67111925, 0])
+    # plot([0, -w0/w1], [-w0/w2, 0])
     # plt.legend()
     # plt.show()
 
