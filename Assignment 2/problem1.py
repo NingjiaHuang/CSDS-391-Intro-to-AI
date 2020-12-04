@@ -30,6 +30,15 @@ def plotclasses23() -> None:
 	plt.title("The 2nd and 3rd Iris Classes")
 	plt.legend()
 	plt.show()
+	
+	plt.plot(versicolor["sepal_length"], versicolor["sepal_width"], '*',label="versicolor", color = 'orange')
+	plt.plot(virginica["sepal_length"], virginica["sepal_width"], '+',label="virginica", color = 'blue')
+	plt.xlabel("sepal length (cm)")
+	plt.ylabel("sepal width (cm)")
+	plt.title("The 2nd and 3rd Iris Classes")
+	plt.legend()
+	plt.show()
+
 
 #Output of 0 for the 2nd iris class, and 1 for the 3rd.
 def zValue(species:list) -> float:
