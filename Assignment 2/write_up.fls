@@ -124,6 +124,13 @@ INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a2.png
+INPUT /usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
@@ -135,12 +142,31 @@ INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1b2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1b2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1b2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d2.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1e.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1e.png
+INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1e.png
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
-INPUT /usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b1.png
 INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b1.png
 INPUT /Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b1.png

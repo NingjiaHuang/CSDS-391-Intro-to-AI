@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 DEC 2020 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 DEC 2020 15:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -294,109 +294,154 @@ LaTeX Info: Redefining \nameref on input line 33.
 \@outlinefile=\write3
 \openout3 = `write_up.out'.
 
- (/usr/local/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
+<fig/ai1a.png, id=4, 462.528pt x 346.896pt>
+File: fig/ai1a.png Graphic file (type png)
+<use fig/ai1a.png>
+Package pdftex.def Info: fig/ai1a.png  used on input line 43.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<fig/ai1a2.png, id=6, 462.528pt x 346.896pt>
+File: fig/ai1a2.png Graphic file (type png)
+<use fig/ai1a2.png>
+Package pdftex.def Info: fig/ai1a2.png  used on input line 47.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+ [1
+
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a.png>]
+<fig/ai1b2.png, id=18, 476.78125pt x 118.4425pt>
+File: fig/ai1b2.png Graphic file (type png)
+<use fig/ai1b2.png>
+Package pdftex.def Info: fig/ai1b2.png  used on input line 61.
+(pdftex.def)             Requested size: 238.39003pt x 59.2211pt.
+<fig/ai1c2.png, id=19, 415.5525pt x 59.22125pt>
+File: fig/ai1c2.png Graphic file (type png)
+<use fig/ai1c2.png>
+Package pdftex.def Info: fig/ai1c2.png  used on input line 65.
+(pdftex.def)             Requested size: 207.77574pt x 29.61053pt.
+ [2 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1a2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1b2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c2.png>]
+File: fig/ai1c2.png Graphic file (type png)
+<use fig/ai1c2.png>
+Package pdftex.def Info: fig/ai1c2.png  used on input line 77.
+(pdftex.def)             Requested size: 207.77574pt x 29.61053pt.
+<fig/ai1c.png, id=34, 462.528pt x 346.896pt>
+File: fig/ai1c.png Graphic file (type png)
+<use fig/ai1c.png>
+Package pdftex.def Info: fig/ai1c.png  used on input line 81.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<fig/ai1d2.png, id=35, 511.9125pt x 96.36pt>
+File: fig/ai1d2.png Graphic file (type png)
+<use fig/ai1d2.png>
+Package pdftex.def Info: fig/ai1d2.png  used on input line 90.
+(pdftex.def)             Requested size: 255.95563pt x 48.17987pt.
+<fig/ai1d.png, id=36, 462.528pt x 346.896pt>
+File: fig/ai1d.png Graphic file (type png)
+<use fig/ai1d.png>
+Package pdftex.def Info: fig/ai1d.png  used on input line 94.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+ [3 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1c.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d2.png>]
+<fig/ai1e.png, id=44, 462.528pt x 346.896pt>
+File: fig/ai1e.png Graphic file (type png)
+<use fig/ai1e.png>
+Package pdftex.def Info: fig/ai1e.png  used on input line 117.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+ [4 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1d.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ai1e.png>] (/usr/local/texlive/2020/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-Underfull \hbox (badness 10000) in paragraph at lines 47--51
+Underfull \hbox (badness 10000) in paragraph at lines 126--130
 
  []
 
-[1
-
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<fig/p2_b1.png, id=29, 462.528pt x 346.896pt>
+[5]
+<fig/p2_b1.png, id=75, 462.528pt x 346.896pt>
 File: fig/p2_b1.png Graphic file (type png)
 <use fig/p2_b1.png>
-Package pdftex.def Info: fig/p2_b1.png  used on input line 73.
+Package pdftex.def Info: fig/p2_b1.png  used on input line 152.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
- [2 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b1.png>]
-<fig/p2_b2.png, id=44, 462.528pt x 346.896pt>
+<fig/p2_b2.png, id=76, 462.528pt x 346.896pt>
 File: fig/p2_b2.png Graphic file (type png)
 <use fig/p2_b2.png>
-Package pdftex.def Info: fig/p2_b2.png  used on input line 80.
+Package pdftex.def Info: fig/p2_b2.png  used on input line 159.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
- [3 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b2.png>] [4] [5]
-Overfull \hbox (39.68623pt too wide) in paragraph at lines 217--228
+ [6 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b1.png>] [7 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2_b2.png>] [8] [9]
+Overfull \hbox (39.68623pt too wide) in paragraph at lines 296--307
  [] 
  []
 
-<fig/p2e1.png, id=80, 462.528pt x 346.896pt>
+<fig/p2e1.png, id=125, 462.528pt x 346.896pt>
 File: fig/p2e1.png Graphic file (type png)
 <use fig/p2e1.png>
-Package pdftex.def Info: fig/p2e1.png  used on input line 231.
+Package pdftex.def Info: fig/p2e1.png  used on input line 310.
 (pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
-[6 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e1.png>]
-<fig/p2e2.png, id=93, 462.528pt x 346.896pt>
+<fig/p2e2.png, id=126, 462.528pt x 346.896pt>
 File: fig/p2e2.png Graphic file (type png)
 <use fig/p2e2.png>
-Package pdftex.def Info: fig/p2e2.png  used on input line 236.
+Package pdftex.def Info: fig/p2e2.png  used on input line 315.
 (pdftex.def)             Requested size: 185.0079pt x 138.75594pt.
-<fig/p2e3.png, id=94, 462.528pt x 346.896pt>
+<fig/p2e3.png, id=127, 462.528pt x 346.896pt>
 File: fig/p2e3.png Graphic file (type png)
 <use fig/p2e3.png>
-Package pdftex.def Info: fig/p2e3.png  used on input line 237.
+Package pdftex.def Info: fig/p2e3.png  used on input line 316.
 (pdftex.def)             Requested size: 185.0079pt x 138.75594pt.
- [7 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e3.png>]
-<fig/p3a1.png, id=122, 462.528pt x 346.896pt>
+[10 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e1.png>] [11 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p2e3.png>]
+<fig/p3a1.png, id=163, 462.528pt x 346.896pt>
 File: fig/p3a1.png Graphic file (type png)
 <use fig/p3a1.png>
-Package pdftex.def Info: fig/p3a1.png  used on input line 293.
+Package pdftex.def Info: fig/p3a1.png  used on input line 372.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
- [8] [9 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3a1.png>]
-<fig/p3b1.png, id=175, 462.528pt x 346.896pt>
+ [12] [13 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3a1.png>]
+<fig/p3b1.png, id=213, 462.528pt x 346.896pt>
 File: fig/p3b1.png Graphic file (type png)
 <use fig/p3b1.png>
-Package pdftex.def Info: fig/p3b1.png  used on input line 329.
+Package pdftex.def Info: fig/p3b1.png  used on input line 408.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-<fig/p3b2.png, id=176, 462.528pt x 346.896pt>
+<fig/p3b2.png, id=214, 462.528pt x 346.896pt>
 File: fig/p3b2.png Graphic file (type png)
 <use fig/p3b2.png>
-Package pdftex.def Info: fig/p3b2.png  used on input line 330.
+Package pdftex.def Info: fig/p3b2.png  used on input line 409.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-<fig/p3c3.png, id=177, 462.528pt x 346.896pt>
+<fig/p3c3.png, id=215, 462.528pt x 346.896pt>
 File: fig/p3c3.png Graphic file (type png)
 <use fig/p3c3.png>
-Package pdftex.def Info: fig/p3c3.png  used on input line 334.
+Package pdftex.def Info: fig/p3c3.png  used on input line 413.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-<fig/p3c4.png, id=178, 462.528pt x 346.896pt>
+<fig/p3c4.png, id=216, 462.528pt x 346.896pt>
 File: fig/p3c4.png Graphic file (type png)
 <use fig/p3c4.png>
-Package pdftex.def Info: fig/p3c4.png  used on input line 335.
+Package pdftex.def Info: fig/p3c4.png  used on input line 414.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
- [10 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3b1.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3b2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3c3.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3c4.png>] [11]
-<fig/ec1.png, id=208, 462.528pt x 346.896pt>
+ [14 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3b1.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3b2.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3c3.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/p3c4.png>] [15]
+<fig/ec1.png, id=246, 462.528pt x 346.896pt>
 File: fig/ec1.png Graphic file (type png)
 <use fig/ec1.png>
-Package pdftex.def Info: fig/ec1.png  used on input line 375.
+Package pdftex.def Info: fig/ec1.png  used on input line 454.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-<fig/ec2.png, id=209, 462.528pt x 346.896pt>
+<fig/ec2.png, id=247, 462.528pt x 346.896pt>
 File: fig/ec2.png Graphic file (type png)
 <use fig/ec2.png>
-Package pdftex.def Info: fig/ec2.png  used on input line 376.
+Package pdftex.def Info: fig/ec2.png  used on input line 455.
 (pdftex.def)             Requested size: 161.88722pt x 121.4154pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 382.
- [12 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ec1.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ec2.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 382.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
+ [16 </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ec1.png> </Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/fig/ec2.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
  (/Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/write_up.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 382.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 382.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 461.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
 Package rerunfilecheck Info: File `write_up.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 382.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 461.
  ) 
 Here is how much of TeX's memory you used:
- 8286 strings out of 480608
- 120420 string characters out of 5903631
- 706858 words of memory out of 5000000
- 23914 multiletter control sequences out of 15000+600000
+ 8351 strings out of 480608
+ 121309 string characters out of 5903631
+ 690925 words of memory out of 5000000
+ 23962 multiletter control sequences out of 15000+600000
  539589 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,42p,476b,2047s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,42p,476b,1919s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "/Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/write_up.pdf" (12 pages, 727207 bytes).
+Output written on "/Users/ningjia/Desktop/Github/CSDS-391-Intro-to-AI/Assignment 2/write_up.pdf" (16 pages, 1143268 bytes).
 PDF statistics:
- 294 PDF objects out of 1000 (max. 8388607)
- 239 compressed objects within 3 object streams
- 136 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 335 PDF objects out of 1000 (max. 8388607)
+ 260 compressed objects within 3 object streams
+ 145 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
