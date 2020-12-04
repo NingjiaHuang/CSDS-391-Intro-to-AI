@@ -153,9 +153,9 @@ def plot_gradient_descent(a, b, x, w0, w1, w2, y):
 
 def main():
     x, y = iris_customize()
-    w0 = -8
-    w1 = 0.6
-    w2 = 1
+    w0 = -3.9
+    w1 = 0.46
+    w2 = 0.95
     # gradient_descent(x, w0, w1, w2, y)
     # old_weight = []
     # w0 = -5
