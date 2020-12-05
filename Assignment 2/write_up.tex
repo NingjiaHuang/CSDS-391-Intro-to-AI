@@ -51,10 +51,10 @@ The plot of 2nd and 3rd classes of the dataset with sepal length vs. sepal width
 \begin{center}
     \includegraphics[scale=0.50]{fig/ai1a2}
 \end{center}
-We can see that petal width vs. petal length can better seperate the 2nd and 3rd classes.
+We can see that petal length vs. petal width can better seperate the 2nd and 3rd classes.
 
 \subsection*{(b)}
-We define the output unit: y = $w_1 \cdot$ petal\_length + $w_2 \cdot$ petal\_width + $w_0$
+We define the output unit: y = $w_1 \cdot$ petal\_length + $w_2 \cdot$ petal\_width + $w_0$. \\
 $w_1$ and $w_2$ are weigths, $w_0$ is bias.
 The sigmoid function is: 
 \begin{center}
@@ -312,7 +312,7 @@ Let step size = 0.01. With the input weight $[w0, w1, w2] = [-5, 0.5, 2]$, we co
 \end{center}
 As we can tell from the table, the mean squared error reduced a little bit as we made a small step. To visualize the change of decision boundary, please refer to the following graph: 
 \begin{center}
-    \includegraphics[scale=0.6]{fig/p2e1.png}
+    \includegraphics[scale=0.8]{fig/p2e1.png}
 \end{center}
 Since the small step is kind of hard to tell, we run this process for $10000$ times in order to enlarge the difference. The following two graphs show the decision boundary before the
 adjustment and after the adjustment: 
@@ -477,10 +477,24 @@ Note that in the example, we randomly choose a polynomial function to transform 
 A kernel is a function k that corresponds to this dot product, i.e. $k(\mathbf{x},\mathbf{y}) = \Phi(\mathbf{x})^T \Phi(\mathbf{y})$. In the mini tutorial, we will briefly explore how the selection of different kernel function will affect the accuracy of classification.
 
 \subsection*{4.2 Code Implementation}
-We classify the dataset by sepal features and petal features seperately. We split the data and the target each to two parts and get 4 datasets: the training set for data, the training set for target, the test set for data, and the test set for target. There are 3 species, each species have 50 samples. We select the test size to be 0.3, which means 
-we put 35 samples of each species in training set, and 15 of each in test set. \\
+We extract features from iris dataset and define a function to assign target to each species: 
+\begin{lstlisting}[language=Python, caption=Define Target]
+def assignT(species:list) -> float:
+    n = 1
+    y = []
+    for var in species:
+        if var =='versicolor':
+            y.append(1)
+        elif var =='virginica':
+            y.append(2)
+        else:
+            y.append(0)
+    return y
+
+\end{lstlisting}
+We classify the dataset by sepal features and petal features seperately. We split the data and the target each to two parts and get 4 datasets: the training set for data, the training set for target, the test set for data, and the test set for target. There are 150 samples. We select the test size to be 0.3, which means we put 105 samples into training set and 45 into test set.  \\
 \begin{lstlisting}[language=Python, caption=Train Test Split]
-X_train, X_test, y_train, y_test = train_test_split(iris.data[:,2:], iris.target, test_size=0.3, random_state=0)  #[:,2:]
+X_train, X_test, y_train, y_test = train_test_split(features[:,2:], target, test_size=0.3, random_state=0) 
 \end{lstlisting}
 \textbf{kernel=`sigmoid'}: $k(\mathbf{x},\mathbf{y}) = tanh(\gamma \cdot \mathbf{x^T}\mathbf{y}+\mathbf{r})$ 
 \begin{lstlisting}[language=Python, caption=Sigmoid]
@@ -490,7 +504,7 @@ sig_svc = svm.SVC(kernel='sigmoid').fit(X_train, y_train)
 \begin{lstlisting}[language=Python, caption=RBF]
 rbf_svc = svm.SVC(kernel='rbf').fit(X_train, y_train)
 \end{lstlisting}
-\textbf{kernel=`poly'}: $k(\mathbf{x},\mathbf{y}) = (\gamma \cdot \mathbf{x^T y} + \mathbf{r})$
+\textbf{kernel=`poly'}: $k(\mathbf{x},\mathbf{y}) = (\gamma \cdot \mathbf{x^T y} + \mathbf{r})^d$
 \begin{lstlisting}[language=Python, caption=Poly]
 poly_svc = svm.SVC(kernel='poly', degree=3).fit(X_train, y_train)
 \end{lstlisting}
