@@ -89,7 +89,7 @@ Code to prepare petal length, petal wieth, and the output:
 \begin{center}
     \includegraphics[scale=0.50]{fig/ai1d2.png}
 \end{center}
-We use the petal length, petal wieth, and the output to draw a 3D neural network
+We use the petal length, petal wieth, and the output to draw a 3D neural network:
 \begin{center}
     \includegraphics[scale=0.50]{fig/ai1d.png}
 \end{center}
@@ -457,5 +457,27 @@ The following two graphs visualize the classification of iris dataset with 4 att
 To categorize 3 classes by $4$ attributes, we used \textbf{Support Vector Machine(SVM)}, which is a tool to find a hyperplane in a multi-dimensional space that distinctly classifying the data points. 
 
 \subsection*{4.1 Brief Explanation of the Idea Behind SVM}
+The general idea is to start with data from a lower dimension and map our space to a higher dimension in order to find a hyperplane to classify the data points. Here is a simple example: the following graph is a number axis with 1-dimension, where the red points and the green points are two different classes we would like to classify and 
+the orange line is the decision boundary we compute to seperate the data points. However, in this case, it is hard to find a boundary which precisely seperates these two classes since no matter where we put the decision boundary, the number of misclassifications would be large. 
+\begin{center}
+    \includegraphics[scale=0.3]{fig/ec_num_axis.png}
+\end{center}
+In this case, we will add another dimension by squaring the coordinates as $y$, as illustrated in the following graph: 
+\begin{center}
+    \includegraphics[scale=0.25]{fig/ec_2d.png} \\
+\end{center}
+The transformation to a higher dimension makes it easier and more accurate for us to find a decision boundary. \\
+Note that in the example, we randomly choose a polynomial function to transform the data from 1-dimension to 2-dimension(by squaring their coordinates). There are actually more than one way to transform those data points. In SVM, we use a \textbf{kernel function} to specify how the data will be transformed to a higher dimension. In the mini tutorial, we 
+will briefly explore how the selection of different kernel function will affect the accuracy of classification.
 
+\subsection*{4.2 Code Implementation}
+
+\subsection*{4.3 Visualization of Output}
+\begin{center}
+    \includegraphics[scale=0.8]{fig/ec3.png}
+    \includegraphics[scale=0.8]{fig/ec4.png}
+\end{center}
+
+\subsection*{4.4 References}
+\href{https://www.youtube.com/watch?v=efR1C6CvhmE}{Support Vector Machines, Clearly Explained!!!}
 \end{document}
