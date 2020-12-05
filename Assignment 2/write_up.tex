@@ -5,6 +5,11 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -472,9 +477,36 @@ Note that in the example, we randomly choose a polynomial function to transform 
 A kernel is a function k that corresponds to this dot product, i.e. $k(\mathbf{x},\mathbf{y}) = \Phi(\mathbf{x})^T \Phi(\mathbf{y})$. In the mini tutorial, we will briefly explore how the selection of different kernel function will affect the accuracy of classification.
 
 \subsection*{4.2 Code Implementation}
-\textbf{kernel=`sigmoid'}: $k(\mathbf{x},\mathbf{y}) = tanh(\gamma \cdot \mathbf{x^T}\mathbf{y}+\mathbf{r})$ \\
-\textbf{kernel=`rbf'}: $k(\mathbf{x},\mathbf{y}) = e^{-\gamma \cdot \left\|\mathbf{x}-\mathbf{y}\right\|^2}$ \\
+We classify the dataset by sepal features and petal features seperately. We split the data and the target each to two parts and get 4 datasets: the training set for data, the training set for target, the test set for data, and the test set for target. There are 3 species, each species have 50 samples. We select the test size to be 0.3, which means 
+we put 35 samples of each species in training set, and 15 of each in test set. \\
+\begin{lstlisting}[language=Python, caption=Train Test Split]
+X_train, X_test, y_train, y_test = train_test_split(iris.data[:,2:], iris.target, test_size=0.3, random_state=0)  #[:,2:]
+\end{lstlisting}
+\textbf{kernel=`sigmoid'}: $k(\mathbf{x},\mathbf{y}) = tanh(\gamma \cdot \mathbf{x^T}\mathbf{y}+\mathbf{r})$ 
+\begin{lstlisting}[language=Python, caption=Sigmoid]
+sig_svc = svm.SVC(kernel='sigmoid').fit(X_train, y_train)
+\end{lstlisting}
+\textbf{kernel=`rbf'}: $k(\mathbf{x},\mathbf{y}) = e^{-\gamma \cdot \left\|\mathbf{x}-\mathbf{y}\right\|^2}$ 
+\begin{lstlisting}[language=Python, caption=RBF]
+rbf_svc = svm.SVC(kernel='rbf').fit(X_train, y_train)
+\end{lstlisting}
 \textbf{kernel=`poly'}: $k(\mathbf{x},\mathbf{y}) = (\gamma \cdot \mathbf{x^T y} + \mathbf{r})$
+\begin{lstlisting}[language=Python, caption=Poly]
+poly_svc = svm.SVC(kernel='poly', degree=3).fit(X_train, y_train)
+\end{lstlisting}
+For each kernel, the function predicts the species according to the model and then the function visualizes the classification: 
+\begin{lstlisting}[language=Python, caption=Prediction]
+Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+\end{lstlisting}
+The following code is used to predict species and calculates the correctness of the classfication: 
+\begin{lstlisting}
+sig_svc_pre = sig_svc.predict(X_test)
+acc_sig_svc = sum(sig_svc_pre==y_test)/len(y_test)
+rbf_svc_pre = rbf_svc.predict(X_test)
+acc_rbf_svc = sum(rbf_svc_pre==y_test)/len(y_test)
+poly_svc_pre = poly_svc.predict(X_test)
+acc_poly_svc = sum(poly_svc_pre==y_test)/len(y_test)
+\end{lstlisting}
 
 \subsection*{4.3 Visualization of Output}
 The following two graphs are the output of putting iris dataset into SVM with kernel function equals to `sigmoid', `rbf', and `poly'. As we can see from the data points and the decision boundaries, RBF and Polynomial classify classes much better than Sigmoid. By running an accuracy test, we found Sigmoid only correctly classifies $24.4\%$ of sepal data and $11.1\%$ of petal data.
@@ -488,6 +520,11 @@ The output of test is as below:
 \begin{center}
     \includegraphics[scale=0.6]{fig/ec_output.png}
 \end{center}
+
 \subsection*{4.4 References}
-\href{https://www.youtube.com/watch?v=efR1C6CvhmE}{Support Vector Machines, Clearly Explained!!!}
+\href{https://www.youtube.com/watch?v=efR1C6CvhmE}{Video to Explain SVM} \\
+\href{https://stats.stackexchange.com/questions/152897/how-to-intuitively-explain-what-a-kernel-is}{Kernel Explanation} \\
+\href{https://stats.stackexchange.com/questions/90736/the-difference-of-kernels-in-svm}{Different Kernel Function} \\
+\href{https://scikit-learn.org/stable/auto_examples/svm/plot_iris_svc.html}{SVM Classification Example}
+
 \end{document}
