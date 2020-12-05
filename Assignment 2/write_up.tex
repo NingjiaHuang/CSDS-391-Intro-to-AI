@@ -467,10 +467,14 @@ In this case, we will add another dimension by squaring the coordinates as $y$, 
     \includegraphics[scale=0.25]{fig/ec_2d.png} \\
 \end{center}
 The transformation to a higher dimension makes it easier and more accurate for us to find a decision boundary. \\
-Note that in the example, we randomly choose a polynomial function to transform the data from 1-dimension to 2-dimension(by squaring their coordinates). There are actually more than one way to transform those data points. In SVM, we use a \textbf{kernel function} to specify how the data will be transformed to a higher dimension. In the mini tutorial, we 
-will briefly explore how the selection of different kernel function will affect the accuracy of classification.
+Note that in the example, we randomly choose a polynomial function to transform the data from 1-dimension to 2-dimension(by squaring their coordinates). There are actually more than one way to transform those data points. In SVM, we use a \textbf{kernel function} to specify how the data will be transformed to a higher dimension. From the link 
+\href{https://stats.stackexchange.com/questions/152897/how-to-intuitively-explain-what-a-kernel-is}{Kernel Explain}, we found an excellent formal definition of kernel: suppose we have a mapping $\Phi:R^n \rightarrow R^m$ that brings our vectors in $R^n$ to some feature space $R^m$. Then the dot product of $x$ and $y$ in this space is $\Phi(x)^T \Phi(y)$. 
+A kernel is a function k that corresponds to this dot product, i.e. $k(\mathbf{x},\mathbf{y}) = \Phi(\mathbf{x})^T \Phi(\mathbf{y})$. In the mini tutorial, we will briefly explore how the selection of different kernel function will affect the accuracy of classification.
 
 \subsection*{4.2 Code Implementation}
+\textbf{kernel=`sigmoid'}: $k(\mathbf{x},\mathbf{y}) = tanh(\gamma \cdot \mathbf{x^T}\mathbf{y}+\mathbf{r})$ \\
+\textbf{kernel=`rbf'}: $k(\mathbf{x},\mathbf{y}) = e^{-\gamma \cdot \left\|\mathbf{x}-\mathbf{y}\right\|^2}$ \\
+\textbf{kernel=`poly'}: $k(\mathbf{x},\mathbf{y}) = (\gamma \cdot \mathbf{x^T y} + \mathbf{r})$
 
 \subsection*{4.3 Visualization of Output}
 \begin{center}
