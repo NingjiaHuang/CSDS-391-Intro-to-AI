@@ -477,11 +477,17 @@ A kernel is a function k that corresponds to this dot product, i.e. $k(\mathbf{x
 \textbf{kernel=`poly'}: $k(\mathbf{x},\mathbf{y}) = (\gamma \cdot \mathbf{x^T y} + \mathbf{r})$
 
 \subsection*{4.3 Visualization of Output}
+The following two graphs are the output of putting iris dataset into SVM with kernel function equals to `sigmoid', `rbf', and `poly'. As we can see from the data points and the decision boundaries, RBF and Polynomial classify classes much better than Sigmoid. By running an accuracy test, we found Sigmoid only correctly classifies $24.4\%$ of sepal data and $11.1\%$ of petal data.
+RBF and Polynomial correctly classify $80\%$ of the sepal data and $97.8\%$ of the petal data. 
+
 \begin{center}
     \includegraphics[scale=0.8]{fig/ec3.png}
     \includegraphics[scale=0.8]{fig/ec4.png}
 \end{center}
-
+The output of test is as below: 
+\begin{center}
+    \includegraphics[scale=0.6]{fig/ec_output.png}
+\end{center}
 \subsection*{4.4 References}
 \href{https://www.youtube.com/watch?v=efR1C6CvhmE}{Support Vector Machines, Clearly Explained!!!}
 \end{document}
